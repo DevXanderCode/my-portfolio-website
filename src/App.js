@@ -3,7 +3,7 @@ import PageWrapper from './components/PageWraper';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Team from "./components/common/Team";
 // pages
-import {Home, About, ServicesPage, PortfolioPage} from './components/Pages';
+import {Home, About, ServicesPage, PortfolioPage, Contact} from './components/Pages';
 
 
 function App() {
@@ -30,6 +30,10 @@ function App() {
           <Route 
             path="/team"
             component={Team}
+          />
+          <Route 
+          path="/contact"
+          component={Contact}
           />
         </PageWrapper>
       </Router>
