@@ -4,6 +4,7 @@ import image from "../assets/images/header-bg.jpg";
 // re-useable component....
 import Services from "../common/Services";
 import Portfolio from "../common/Portfolio";
+import Team from "../common/Team";
 
 const Home = () => {
     return(
@@ -18,6 +19,7 @@ const Home = () => {
             />
             <Services />
             <Portfolio />
+            <Team />
         </div>
     );
 }

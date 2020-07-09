@@ -1,6 +1,7 @@
 import React from 'react';
 import PageWrapper from './components/PageWraper';
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import Team from "./components/common/Team";
 // pages
 import {Home, About, ServicesPage, PortfolioPage} from './components/Pages';
 
@@ -25,6 +26,10 @@ function App() {
           <Route 
             path="/portfolio"
             component={PortfolioPage}
+          />
+          <Route 
+            path="/team"
+            component={Team}
           />
         </PageWrapper>
       </Router>
