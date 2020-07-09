@@ -1,19 +1,16 @@
 import React from "react";
 import Header from "../common/Header";
-import image from "../assets/images/header-bg.jpg";
+import image from "../assets/images/building.jpg";
 
 const AboutUs = () => {
     return(
         <div>
             <Header 
-                title="Welcome To Our Studio!" 
-                subtitle="IT'S NICE TO MEET YOU" 
-                link="/services"
-                buttonText="Tell Me More"
+                title="About US" 
+                subtitle="It's really a great story!" 
                 image={image}
-                showButton={true}
+                showButton={false}
             />
-
             <section className="page-section" id="about">
                 <div className="container">
                 <div className="row">
