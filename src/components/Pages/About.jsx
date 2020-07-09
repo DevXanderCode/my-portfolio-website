@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../common/Header";
 import image from "../assets/images/building.jpg";
+import Services from "../common/Services";
 
 const AboutUs = () => {
     return(
@@ -90,6 +91,7 @@ const AboutUs = () => {
                 </div>
                 </div>
             </section>
+            <Services />
         </div>
     );
 }
