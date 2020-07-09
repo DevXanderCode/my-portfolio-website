@@ -7,10 +7,10 @@ const services = [
       icon: "fa-shopping-cart"},
     {title: "Responsive Design",
      desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.",
-      icon: "fa-shopping-cart"},
+      icon: "fa-laptop"},
     {title: "Web Security",
      desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.",
-      icon: "fa-shopping-cart"},
+      icon: "fa-lock"},
 ];
 
 const Services = () => {
@@ -24,7 +24,7 @@ const Services = () => {
             </div>
             </div>
             <div className="row text-center">
-                {services.map(({ title, desc, icon }, i) => (<SingleService key={i} title={title} desc={desc} icon={icon} />))}
+                {services.map((service, i) => (<SingleService key={i} {...service} />))}
             </div>
         </div>
     </section>

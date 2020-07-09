@@ -1,6 +1,9 @@
 import React from "react";
 import Header from "../common/Header";
-import image from "../assets/images/header-bg.jpg"
+import image from "../assets/images/header-bg.jpg";
+// re-useable component....
+import Services from "../common/Services";
+
 const Home = () => {
     return(
         <div>
@@ -12,6 +15,7 @@ const Home = () => {
                 image={image}
                 showButton={true}
             />
+            <Services />
         </div>
     );
 }
