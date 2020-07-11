@@ -1,6 +1,6 @@
 import React from "react";
 
-const Field = ({ name, elementName, type, placeholder, value, onChange, formValue}) => {
+const Field = ({ name, elementName, type, placeholder, onChange, onBlur, touched, errors }) => {
     return (
       <div className="form-group">
         {elementName === "input" ? 
@@ -11,6 +11,7 @@ const Field = ({ name, elementName, type, placeholder, value, onChange, formValu
                 id={name} 
                 type={type}
                 placeholder={placeholder}
+                onBlur={onBlur}
                 // value={value}
                 onChange={onChange}
                 required="required" 
@@ -22,6 +23,7 @@ const Field = ({ name, elementName, type, placeholder, value, onChange, formValu
                 id={name} 
                 name={name}
                 onChange={onChange}
+                onBlur={onBlur}
                 // value={value}
                 // onChange={(e) => onChange(e)}
                 placeholder={placeholder}
@@ -30,7 +32,11 @@ const Field = ({ name, elementName, type, placeholder, value, onChange, formValu
                 />
             )}
             {/* {console.log(formValue)} */}
-        <p className="help-block text-danger"></p>
+        <p className="help-block text-danger">
+            {(touched && errors) && 
+               <span>{errors}</span>
+             }
+        </p>
       </div>
     );
 }

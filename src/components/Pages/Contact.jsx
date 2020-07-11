@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React  from "react";
 import {withFormik} from "formik";
 
 //re-useable component
@@ -17,7 +17,7 @@ const fields = {
   ],
 }
 
-const Contact = (props) => {
+const Contact = ({handleChange, handleSubmit, handleBlur, touched, errors }) => {
     // const [formValue, setFormValue] = useState({ name: "", email: "", phone: "", message: "" });
     // let {name, email, phone, message } = formValue;
     
@@ -31,10 +31,10 @@ const Contact = (props) => {
 
     // const prevState = usePrevious(formValue);
 
-    const submitForm = (e) => {
-      e.preventDefault();
-      alert("form submitted thank you");
-    }
+    // const submitForm = (e) => {
+    //   e.preventDefault();
+    //   alert("form submitted thank you");
+    // }
     // console.log(formValue);
     return(
       <section className="page-section" id="contact">
@@ -47,7 +47,7 @@ const Contact = (props) => {
           </div>
           <div className="row">
             <div className="col-lg-12">
-              <form onSubmit={e => submitForm(e)} id="contactForm" name="sentMessage" noValidate="novalidate">
+              <form onSubmit={handleSubmit}  name="sentMessage" noValidate="novalidate">
                 <div className="row">
                   {fields.sections.map((section, sectionIndex) => 
                     <div className="col-md-6" key={sectionIndex}>
@@ -55,7 +55,10 @@ const Contact = (props) => {
                           (<Field 
                               key={i} 
                               {...field}
-                              onChange={props.handleChange}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              touched={(touched[field.name])}
+                              errors={errors[field.name]}
                               // value={formValue[field.name]}
                               // formValue={formValue}
                               // onChange={(e) => setFormValue({
@@ -97,12 +100,13 @@ export default withFormik({
     const errors = {};
     Object.keys(values).map((value) => {
       if(!values[value]){
-       return errors[value] = `Required ${value} field`;
+        errors[value] = `The ${value} field is Required`;
       }
-      return errors;
     })
+    return errors;
   },
   handleSubmit: (values, {setSubmitting}) => {
-    alert("you have summited the Contact Form");
+    alert(JSON.stringify(values));
+    console.log("values", values);
   }
 })(Contact);
