@@ -6,12 +6,13 @@ const Field = ({ name, elementName, type, placeholder, value, onChange, formValu
         {elementName === "input" ? 
          (
             <input 
+                name={name} 
                 className="form-control" 
                 id={name} 
                 type={type}
                 placeholder={placeholder}
-                value={value}
-                onChange={(e) => onChange(e)}
+                // value={value}
+                onChange={onChange}
                 required="required" 
                 data-validation-required-message="Please enter your name." 
             />
@@ -19,13 +20,16 @@ const Field = ({ name, elementName, type, placeholder, value, onChange, formValu
             <textarea 
                 className="form-control" 
                 id={name} 
-                value={value}
-                onChange={(e) => onChange(e)}
+                name={name}
+                onChange={onChange}
+                // value={value}
+                // onChange={(e) => onChange(e)}
                 placeholder={placeholder}
                 required="required" 
                 data-validation-required-message="Please enter a message."
                 />
-            )}{console.log(formValue)}
+            )}
+            {/* {console.log(formValue)} */}
         <p className="help-block text-danger"></p>
       </div>
     );

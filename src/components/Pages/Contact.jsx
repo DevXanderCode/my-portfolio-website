@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import {withFormik} from "formik";
 
 //re-useable component
 import Field from "../common/Field"; 
@@ -16,25 +17,25 @@ const fields = {
   ],
 }
 
-const Contact = () => {
-    const [formValue, setFormValue] = useState({ name: "", email: "", phone: "", message: "" });
+const Contact = (props) => {
+    // const [formValue, setFormValue] = useState({ name: "", email: "", phone: "", message: "" });
     // let {name, email, phone, message } = formValue;
     
-    const usePrevious = (value) => {
-        const ref = useRef(value);
-        useEffect(() => {
-          ref.current = value;
-        });
-        return ref.current;
-      }
+    // const usePrevious = (value) => {
+    //     const ref = useRef(value);
+    //     useEffect(() => {
+    //       ref.current = value;
+    //     });
+    //     return ref.current;
+    //   }
 
-    const prevState = usePrevious(formValue);
+    // const prevState = usePrevious(formValue);
 
     const submitForm = (e) => {
       e.preventDefault();
       alert("form submitted thank you");
     }
-    console.log(formValue);
+    // console.log(formValue);
     return(
       <section className="page-section" id="contact">
         <div className="container">
@@ -54,10 +55,11 @@ const Contact = () => {
                           (<Field 
                               key={i} 
                               {...field}
-                              value={formValue[field.name]}
-                              formValue={formValue}
-                              onChange={(e) => setFormValue({
-                                 ...prevState, [field.name] : e.target.value,}, e.persist())}
+                              onChange={props.handleChange}
+                              // value={formValue[field.name]}
+                              // formValue={formValue}
+                              // onChange={(e) => setFormValue({
+                              //    ...prevState, [field.name] : e.target.value,}, e.persist())}
                             />)
                         )}
                     </div>
@@ -84,4 +86,23 @@ const Contact = () => {
     );
 }
 
-export default Contact;
+export default withFormik({
+  mapPropsToValues: () => ({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  }),
+  validate: (values) => {
+    const errors = {};
+    Object.keys(values).map((value) => {
+      if(!values[value]){
+       return errors[value] = `Required ${value} field`;
+      }
+      return errors;
+    })
+  },
+  handleSubmit: (values, {setSubmitting}) => {
+    alert("you have summited the Contact Form");
+  }
+})(Contact);
