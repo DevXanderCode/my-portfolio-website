@@ -1,9 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+
+//re-useable component
+import Field from "../common/Field"; 
+
+const fields = {
+  sections:[
+    [
+      {name: "name", elementName: "input", type: "text", placeholder: "Your Name *"},
+      {name: "email", elementName: "input", type: "email", placeholder: "Your Email *"},
+      {name: "phone", elementName: "input", type: "tel", placeholder: "Your phone *"}
+    ],
+    [
+      {name: "message", elementName: "textarea", type: "text", placeholder: "Your message *"}
+    ]
+  ],
+}
 
 const Contact = () => {
-    const [formValue, setFormValue] = useState({ name: "", email: "", phone: "", message: "" })
-    let {name, email, phone, message } = formValue;
+    const [formValue, setFormValue] = useState({ name: "", email: "", phone: "", message: "" });
+    // let {name, email, phone, message } = formValue;
     console.log(formValue);
+    function usePrevious(value) {
+        const ref = useRef(value);
+        useEffect(() => {
+          ref.current = value;
+        });
+        return ref.current;
+      }
+
+    const prevState = usePrevious(formValue);
     return(
       <section className="page-section" id="contact">
         <div className="container">
@@ -17,61 +42,21 @@ const Contact = () => {
             <div className="col-lg-12">
               <form id="contactForm" name="sentMessage" noValidate="novalidate">
                 <div className="row">
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <input 
-                        className="form-control" 
-                        id="name" 
-                        type="text" 
-                        placeholder="Your Name *" 
-                        value={name}
-                        onChange={(e) => setFormValue({ name: e.target.value, email, phone, message,  })}
-                        required="required" 
-                        data-validation-required-message="Please enter your name." 
-                      />
-                      <p className="help-block text-danger"></p>
+                  {fields.sections.map((section, sectionIndex) => 
+                    <div className="col-md-6" key={sectionIndex}>
+                        {section.map((field, i) => 
+                          (<Field 
+                              key={i} 
+                              {...field}
+                              value={formValue[field.name]}
+                              formValue={formValue}
+                              onChange={(e) => setFormValue({
+                                 ...prevState, [field.name] : e.target.value,}, e.persist())}
+                            />)
+                        )}
                     </div>
-                    <div className="form-group">
-                      <input 
-                        className="form-control" 
-                        id="email" 
-                        type="email"
-                        value={email} 
-                        onChange={(e) => setFormValue({ email: e.target.value, name, phone, message })}
-                        placeholder="Your Email *" 
-                        required="required" 
-                        data-validation-required-message="Please enter your email address." 
-                      />
-                      <p className="help-block text-danger"></p>
-                    </div>
-                    <div className="form-group">
-                      <input 
-                        className="form-control" 
-                        id="phone" 
-                        type="tel" 
-                        value={phone}
-                        onChange={(e) => setFormValue({ phone: e.target.value, name, email, message })}
-                        placeholder="Your Phone *" 
-                        required="required" 
-                        data-validation-required-message="Please enter your phone number." 
-                      />
-                      <p className="help-block text-danger"></p>
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <textarea 
-                        className="form-control" 
-                        id="message" 
-                        value={message}
-                        onChange={(e) => setFormValue({ message: e.target.value, name, phone, email })}
-                        placeholder="Your Message *" 
-                        required="required" 
-                        data-validation-required-message="Please enter a message."
-                      />
-                      <p className="help-block text-danger"></p>
-                    </div>
-                  </div>
+                    )
+                  }
                   <div className="clearfix"></div>
                   <div className="col-lg-12 text-center">
                     <div id="success"></div>
