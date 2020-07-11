@@ -19,8 +19,8 @@ const fields = {
 const Contact = () => {
     const [formValue, setFormValue] = useState({ name: "", email: "", phone: "", message: "" });
     // let {name, email, phone, message } = formValue;
-    console.log(formValue);
-    function usePrevious(value) {
+    
+    const usePrevious = (value) => {
         const ref = useRef(value);
         useEffect(() => {
           ref.current = value;
@@ -29,6 +29,12 @@ const Contact = () => {
       }
 
     const prevState = usePrevious(formValue);
+
+    const submitForm = (e) => {
+      e.preventDefault();
+      alert("form submitted thank you");
+    }
+    console.log(formValue);
     return(
       <section className="page-section" id="contact">
         <div className="container">
@@ -40,7 +46,7 @@ const Contact = () => {
           </div>
           <div className="row">
             <div className="col-lg-12">
-              <form id="contactForm" name="sentMessage" noValidate="novalidate">
+              <form onSubmit={e => submitForm(e)} id="contactForm" name="sentMessage" noValidate="novalidate">
                 <div className="row">
                   {fields.sections.map((section, sectionIndex) => 
                     <div className="col-md-6" key={sectionIndex}>
@@ -60,7 +66,13 @@ const Contact = () => {
                   <div className="clearfix"></div>
                   <div className="col-lg-12 text-center">
                     <div id="success"></div>
-                    <button id="sendMessageButton" className="btn btn-primary btn-xl text-uppercase" type="submit">Send Message</button>
+                    <button 
+                      id="sendMessageButton" 
+                      className="btn btn-primary btn-xl text-uppercase" 
+                      type="submit"
+                      >
+                        Send Message
+                      </button>
                   </div>
                 </div>
               </form>
