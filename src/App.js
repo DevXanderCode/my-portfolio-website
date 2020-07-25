@@ -3,39 +3,71 @@ import PageWrapper from './components/PageWraper';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Team from "./components/common/Team";
 // pages
-import {Home, About, ServicesPage, PortfolioPage, Contact} from './components/Pages';
+import {Home, About, ServicesPage, PortfolioPage, Contact, Login} from './components/Pages';
+import AdminWrapper from './components/AdminWrapper';
+// import AdminWrapper from "./components/AdminWrapper";
 
 
-function App() {
+function App(props) {
   return (
       <Router>
-        <PageWrapper>
+          <Route 
+            path="/admin"
+            render={props => (
+              <AdminWrapper>
+                <Login {...props}/>
+              </AdminWrapper>
+            )}
+          />
           <Route 
             path="/"
             exact
-            component={Home}
+            render={props => (
+              <PageWrapper>
+                <Home {...props} />
+              </PageWrapper>
+              )}
           />
           <Route 
             path="/about"
-            component={About}
+            render={props => (
+              <PageWrapper>
+                <About {...props} />
+              </PageWrapper>
+              )}
           />
           <Route 
             path="/services"
-            component={ServicesPage}
+            render={props => (
+              <PageWrapper>
+                <ServicesPage {...props} />
+              </PageWrapper>
+              )}
           />
           <Route 
             path="/portfolio"
-            component={PortfolioPage}
+            render={props => (
+              <PageWrapper>
+                <PortfolioPage {...props} />
+              </PageWrapper>
+              )}
           />
           <Route 
             path="/team"
-            component={Team}
+            render={props => (
+              <PageWrapper>
+                <Team {...props} />
+              </PageWrapper>
+              )}
           />
           <Route 
           path="/contact"
-          component={Contact}
+          render={props => (
+            <PageWrapper>
+              <Contact {...props} />
+            </PageWrapper>
+            )}
           />
-        </PageWrapper>
       </Router>
   );
 }

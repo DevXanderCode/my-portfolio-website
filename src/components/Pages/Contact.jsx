@@ -19,24 +19,6 @@ const fields = {
 }
 
 const Contact = ({handleChange, handleSubmit, handleBlur, touched, errors }) => {
-    // const [formValue, setFormValue] = useState({ name: "", email: "", phone: "", message: "" });
-    // let {name, email, phone, message } = formValue;
-    
-    // const usePrevious = (value) => {
-    //     const ref = useRef(value);
-    //     useEffect(() => {
-    //       ref.current = value;
-    //     });
-    //     return ref.current;
-    //   }
-
-    // const prevState = usePrevious(formValue);
-
-    // const submitForm = (e) => {
-    //   e.preventDefault();
-    //   alert("form submitted thank you");
-    // }
-    // console.log(formValue);
     return(
       <section className="page-section" id="contact">
         <div className="container">
@@ -60,10 +42,6 @@ const Contact = ({handleChange, handleSubmit, handleBlur, touched, errors }) => 
                               onBlur={handleBlur}
                               touched={(touched[field.name])}
                               errors={errors[field.name]}
-                              // value={formValue[field.name]}
-                              // formValue={formValue}
-                              // onChange={(e) => setFormValue({
-                              //    ...prevState, [field.name] : e.target.value,}, e.persist())}
                             />)
                         )}
                     </div>

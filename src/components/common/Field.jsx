@@ -1,6 +1,6 @@
 import React from "react";
 
-const Field = ({ name, elementName, type, placeholder, onChange, onBlur, touched, errors }) => {
+const Field = ({ name, elementName, type, placeholder, onChange, onBlur, touched, errors, value }) => {
     return (
       <div className="form-group">
         {elementName === "input" ? 
@@ -12,7 +12,7 @@ const Field = ({ name, elementName, type, placeholder, onChange, onBlur, touched
                 type={type}
                 placeholder={placeholder}
                 onBlur={onBlur}
-                // value={value}
+                value={value}
                 onChange={onChange}
                 required="required" 
                 data-validation-required-message="Please enter your name." 
@@ -24,7 +24,7 @@ const Field = ({ name, elementName, type, placeholder, onChange, onBlur, touched
                 name={name}
                 onChange={onChange}
                 onBlur={onBlur}
-                // value={value}
+                value={value}
                 // onChange={(e) => onChange(e)}
                 placeholder={placeholder}
                 required="required" 
@@ -34,7 +34,7 @@ const Field = ({ name, elementName, type, placeholder, onChange, onBlur, touched
             {/* {console.log(formValue)} */}
         <p className="help-block text-danger">
             {(touched && errors) && 
-               <span>{errors}</span>
+               <span style={{fontSize: "1.2rem", color: "yellow"}}>{errors}</span>
              }
         </p>
       </div>
