@@ -42,13 +42,13 @@ const Login = ({handleChange, handleSubmit, handleBlur, touched, errors, values 
                                 errors={errors[field.name]}
                                 />))
                             }
-                            <div className="col-lg-12 text-center">
-                                <div id="success"></div>
+                            <div className="col-md-12 text-center" style={{width: "100%", padding: "0"}}>
                                 <button 
                                 id="LoginButton" 
-                                className="btn btn-success btn-xl text-uppercase" 
+                                className="btn btn-success text-uppercase" 
                                 type="submit"
                                 onClick={handleSubmit}
+                                style={{width: "100%"}}
                                 >
                                 Login
                                 </button>
