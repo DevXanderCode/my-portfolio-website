@@ -44,6 +44,7 @@ const Login = ({
   touched,
   errors,
   values,
+  login,
 }) => {
   return (
     <div className='login-page' style={{ ...loginPageStyle }}>
@@ -71,7 +72,10 @@ const Login = ({
                 id='LoginButton'
                 className='btn btn-success text-uppercase'
                 type='submit'
-                onClick={handleSubmit}
+                onClick={(e) => {
+                  e.preventDefault();
+                  login(values.email, values.password);
+                }}
                 style={{ width: "100%" }}
               >
                 Login
@@ -93,13 +97,16 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     login: (email, password) => {
-      //   console.log("logging in user:", email);
       dispatch(AuthActions.login(email, password));
+      console.log("logging in user:", email);
     },
   };
 };
 
 export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
   withFormik({
     mapPropsToValues: () => ({
       email: "",
@@ -111,9 +118,10 @@ export default connect(
         .required("Please you need to login with an email address"),
       password: YUP.string().required("please enter your Password"),
     }),
-    handleSubmit: (values, { setSubmitting }) => {
-      alert(JSON.stringify(values));
-      console.log("form values are: ", values);
-    },
-  })
-)(Login);
+    // handleSubmit: (values, { setSubmitting }, login) => {
+    //   alert(JSON.stringify(values));
+    //   // console.log("form values are: ", values);
+    //   login(values.email, values.password);
+    // },
+  })(Login)
+);
