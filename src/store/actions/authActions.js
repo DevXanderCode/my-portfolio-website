@@ -6,3 +6,10 @@ export const login = (email, password) => {
     payload: { email, password },
   };
 };
+
+export const register = (email, password) => {
+  return {
+    type: "REGISTER",
+    payload: { email, password },
+  };
+};
