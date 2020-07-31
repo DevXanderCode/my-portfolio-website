@@ -2,6 +2,7 @@ import React from "react";
 import PageWrapper from "./components/PageWraper";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Team from "./components/common/Team";
+import { connect } from "react-redux";
 // pages
 import {
   Home,
@@ -10,18 +11,19 @@ import {
   PortfolioPage,
   Contact,
   Login,
+  Dashboard,
 } from "./components/Pages";
 import AdminWrapper from "./components/AdminWrapper";
 // import AdminWrapper from "./components/AdminWrapper";
 
-function App(props) {
+function App({ auth }) {
   return (
     <Router>
       <Route
         path='/admin'
         render={(props) => (
           <AdminWrapper>
-            <Login {...props} />
+            {auth.token ? <Dashboard {...props} /> : <Login {...props} />}
           </AdminWrapper>
         )}
       />
@@ -78,4 +80,13 @@ function App(props) {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {};
+};
+export default connect(mapStateToProps, mapDispatchToProps)(App);
