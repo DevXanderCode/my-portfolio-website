@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 const Dashboard = ({ auth: { token } }) => {
   return (
-    <div>
+    <div style={{ padding: "0", margin: "0" }}>
       <h2>You are Logged in with token {token}</h2>
     </div>
   );

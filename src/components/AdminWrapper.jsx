@@ -5,9 +5,15 @@ const AdminWrapper = (props) => {
     <div
       id='admin-page'
       style={{
+        display: "flex",
         backgroundColor: "#eee",
         minHeight: "100vh",
-        paddingTop: "6rem",
+        // paddingTop: "6rem",
+        justifyContent: "center",
+        alignContent: "center",
+        alignItems: "center",
+        justifyItems: "center",
+        verticalAlign: "middle",
       }}
     >
       {props.children}

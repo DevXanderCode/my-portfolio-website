@@ -14,7 +14,6 @@ import {
   Dashboard,
 } from "./components/Pages";
 import AdminWrapper from "./components/AdminWrapper";
-// import AdminWrapper from "./components/AdminWrapper";
 
 function App({ auth }) {
   return (
@@ -24,6 +23,7 @@ function App({ auth }) {
         render={(props) => (
           <AdminWrapper>
             {auth.token ? <Dashboard {...props} /> : <Login {...props} />}
+            {console.log(auth)}
           </AdminWrapper>
         )}
       />

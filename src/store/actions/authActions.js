@@ -1,9 +1,14 @@
-const { default: Login } = require("../../components/Pages/Login");
+import API from "../../utils/api";
 
 export const login = (email, password) => {
-  return {
-    type: "LOGIN",
-    payload: { email, password },
+  return (dispatch) => {
+    API.login(email, password, (res) => {
+      console.log("Results: ", res.data);
+      dispatch({
+        type: "LOGIN",
+        payload: { email, password },
+      });
+    });
   };
 };
 

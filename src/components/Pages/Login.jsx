@@ -21,7 +21,7 @@ const fields = [
 ];
 
 const loginPageStyle = {
-  width: "50%",
+  minWidth: "50%",
   margin: "auto",
   border: "1px groove rgba(122,122, 122, 0.4)",
   backgroundImage: "linear-gradient(180deg, #555,rgba(118,118,118, .8))",
@@ -48,10 +48,15 @@ const Login = ({
 }) => {
   return (
     <div className='login-page' style={{ ...loginPageStyle }}>
-      <div className='container'>
+      <div className='container' style={{ minWidth: "max-content" }}>
         <div className='login-form' style={{ padding: "1rem" }}>
           <h1 style={{ ...formTitle }}>Login</h1>
-          <form>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              login(values.email, values.password);
+            }}
+          >
             {fields.map((field, idx) => (
               <Field
                 {...field}
@@ -72,10 +77,6 @@ const Login = ({
                 id='LoginButton'
                 className='btn btn-success text-uppercase'
                 type='submit'
-                onClick={(e) => {
-                  e.preventDefault();
-                  login(values.email, values.password);
-                }}
                 style={{ width: "100%" }}
               >
                 Login
