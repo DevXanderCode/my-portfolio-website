@@ -1,11 +1,12 @@
 import * as React from "react";
+import { withRouter } from "react-router-dom";
 
-const Posts = () => {
+const Posts = (props) => {
   return (
-    <div>
-      <h1>Testing Posts</h1>
+    <div style={{ padding: "0", margin: "0" }}>
+      <h4>Testing Posts</h4>
     </div>
   );
 };
 
-export default Posts;
+export default withRouter(Posts);

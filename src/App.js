@@ -11,21 +11,71 @@ import {
   PortfolioPage,
   Contact,
   Login,
-  Dashboard,
 } from "./components/Pages";
+
 import AdminWrapper from "./components/AdminWrapper";
+import LoginWrapper from "./components/LoginWrapper";
+
+// Admin Pages
+import { Dashboard, Users, Posts } from "./components/Pages/Admin";
 
 function App({ auth }) {
   return (
     <Router>
       <Route
+        exact
         path='/admin'
-        render={(props) => (
-          <AdminWrapper>
-            {auth.token ? <Dashboard {...props} /> : <Login {...props} />}
-            {console.log(auth)}
-          </AdminWrapper>
-        )}
+        render={(props) => {
+          return (
+            <div>
+              {auth.token ? (
+                <AdminWrapper>
+                  <Dashboard {...props} />
+                </AdminWrapper>
+              ) : (
+                <LoginWrapper>
+                  <Login {...props} />
+                </LoginWrapper>
+              )}
+            </div>
+          );
+        }}
+      />
+      <Route
+        path='/admin/posts'
+        render={(props) => {
+          return (
+            <div>
+              {auth.token ? (
+                <AdminWrapper>
+                  <Posts {...props} />
+                </AdminWrapper>
+              ) : (
+                <LoginWrapper>
+                  <Login {...props} />
+                </LoginWrapper>
+              )}
+            </div>
+          );
+        }}
+      />
+      <Route
+        path='/admin/users'
+        render={(props) => {
+          return (
+            <div>
+              {auth.token ? (
+                <AdminWrapper>
+                  <Users {...props} />
+                </AdminWrapper>
+              ) : (
+                <LoginWrapper>
+                  <Login {...props} />
+                </LoginWrapper>
+              )}
+            </div>
+          );
+        }}
       />
       <Route
         path='/'
