@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
@@ -6,8 +6,9 @@ import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 
 // Drawer import
-import { Drawer, List, ListItem, IconButton } from "@material-ui/core";
+import { Drawer, List, ListItem, IconButton, Divider } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 
 const drawerWidth = 240;
 
@@ -15,7 +16,16 @@ const styles = (theme) => ({
   toolbar: {
     paddingRight: 24,
   },
+  toolbarIcon: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    ...theme.mixins.toolbar,
+  },
   appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+  },
+  appBarShift: {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
   },
@@ -27,11 +37,25 @@ const styles = (theme) => ({
 });
 
 const Dashboard = ({ auth: { token }, classes, ...props }) => {
+  const [drawerState, setDrawerState] = React.useState({ open: true });
+
+  const handleDrawerOpen = (e) => {
+    setDrawerState({ open: true });
+  };
+
+  const handleDrawerClose = (e) => {
+    setDrawerState({ open: false });
+  };
   return (
     <div style={{ padding: "0", margin: "0" }}>
-      <AppBar className={classes.appBar}>
+      <AppBar
+        className={classNames(
+          classes.appBar,
+          drawerState.open && classes.appBarShift
+        )}
+      >
         <Toolbar classes={classes.toolbar}>
-          <IconButton>
+          <IconButton onClick={(e) => handleDrawerOpen(e)}>
             <MenuIcon />
           </IconButton>
           <Typography component='h1' variant='h6' color='inherit' noWrap>
@@ -42,8 +66,14 @@ const Dashboard = ({ auth: { token }, classes, ...props }) => {
       <Drawer
         classes={{ paper: classes.drawerPaper }}
         variant='permanent'
-        open={true}
+        open={drawerState.open}
       >
+        <div className={classes.toolbarIcon}>
+          <IconButton onClick={(e) => handleDrawerClose(e)}>
+            <ChevronLeftIcon />
+          </IconButton>
+        </div>
+        <Divider />
         <List>
           <ListItem>Dashboard</ListItem>
         </List>
