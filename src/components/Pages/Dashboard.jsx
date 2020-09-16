@@ -16,6 +16,9 @@ import SideBar from "../common/SideBar";
 const drawerWidth = 240;
 
 const styles = (theme) => ({
+  root: {
+    display: "flex",
+  },
   toolbar: {
     paddingRight: 24,
   },
@@ -40,6 +43,7 @@ const styles = (theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
+  appBarSpace: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
     whiteSpace: "noWrap",
@@ -57,6 +61,13 @@ const styles = (theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
+  mainContent: {
+    flexGrow: 1,
+    padding: theme.spacing.unit * 3,
+    height: "100%",
+    overflow: "auto",
+    paddingLeft: "10px",
+  },
 });
 
 const Dashboard = ({ auth: { token }, classes, ...props }) => {
@@ -70,7 +81,7 @@ const Dashboard = ({ auth: { token }, classes, ...props }) => {
     setDrawerState({ open: false });
   };
   return (
-    <div style={{ padding: "0", margin: "0" }}>
+    <div style={{ padding: "0", margin: "0" }} className={classes.root}>
       <AppBar
         className={classNames(
           classes.appBar,
@@ -104,7 +115,10 @@ const Dashboard = ({ auth: { token }, classes, ...props }) => {
         <Divider />
         <SideBar />
       </Drawer>
-      <h2>You are Logged in with token {token}</h2>
+      <main className={classes.mainContent}>
+        <div className={classes.appBarSpace} />
+        <h3>You are Logged in with token {token}</h3>
+      </main>
     </div>
   );
 };
