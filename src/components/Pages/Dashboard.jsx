@@ -41,6 +41,18 @@ const styles = (theme) => ({
     width: drawerWidth,
     whiteSpace: "noWrap",
     position: "relative",
+    transition: theme.transitions.create("width", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  drawerPaperClose: {
+    overflowX: "hidden",
+    width: theme.spacing.unit * 7,
+    transition: theme.transitions.create("width", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
   },
 });
 
@@ -72,7 +84,12 @@ const Dashboard = ({ auth: { token }, classes, ...props }) => {
         </Toolbar>
       </AppBar>
       <Drawer
-        classes={{ paper: classes.drawerPaper }}
+        classes={{
+          paper: classNames(
+            classes.drawerPaper,
+            !drawerState.open && classes.drawerPaperClose
+          ),
+        }}
         variant='permanent'
         open={drawerState.open}
       >
