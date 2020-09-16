@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link as RouterLink } from "react-router-dom";
 // List Components
 import {
   List,
@@ -6,33 +7,38 @@ import {
   ListItemIcon,
   ListItemText,
   ListSubheader,
+  Link,
 } from "@material-ui/core";
 // Icons
 import FaceIcon from "@material-ui/icons/Face";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 
+const ListItemLink = (props) => {
+  return <ListItem button component={RouterLink} {...props} />;
+};
+
 const SideBar = () => {
   return (
     <List>
-      <ListItem button>
+      <ListItemLink to='/admin'>
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
         <ListItemText primary='Dashboard' />
-      </ListItem>
-      <ListItem button>
+      </ListItemLink>
+      <ListItemLink to='/admin/posts'>
         <ListItemIcon>
           <FileCopyIcon />
         </ListItemIcon>
         <ListItemText primary='Posts' />
-      </ListItem>
-      <ListItem>
+      </ListItemLink>
+      <ListItemLink to='/admin/users'>
         <ListItemIcon>
           <FaceIcon />
         </ListItemIcon>
         <ListItemText primary='Users' />
-      </ListItem>
+      </ListItemLink>
     </List>
   );
 };

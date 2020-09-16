@@ -68,6 +68,7 @@ const Field = ({
             style={{
               height: "auto",
               borderBottom: "1px solid #ced4da",
+              cursor: "pointer",
             }}
           />
         </div>

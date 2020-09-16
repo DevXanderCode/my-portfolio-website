@@ -6,7 +6,7 @@ import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 
 // Drawer import
-import { Drawer, List, ListItem, IconButton, Divider } from "@material-ui/core";
+import { Drawer, IconButton, Divider } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 
@@ -102,9 +102,6 @@ const Dashboard = ({ auth: { token }, classes, ...props }) => {
           </IconButton>
         </div>
         <Divider />
-        {/* <List>
-          <ListItem>Dashboard</ListItem>
-        </List> */}
         <SideBar />
       </Drawer>
       <h2>You are Logged in with token {token}</h2>
