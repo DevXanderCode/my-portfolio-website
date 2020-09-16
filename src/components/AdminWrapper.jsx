@@ -6,9 +6,9 @@ const AdminWrapper = (props) => {
       id='admin-page'
       style={{
         display: "flex",
-        backgroundColor: "#eee",
-        minHeight: "100vh",
-        // paddingTop: "6rem",
+        // backgroundColor: "#eee",
+        minHeight: "100%",
+        //   // paddingTop: "6rem",
         justifyContent: "center",
         alignContent: "center",
         alignItems: "center",

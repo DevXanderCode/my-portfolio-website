@@ -21,12 +21,14 @@ const fields = [
 ];
 
 const loginPageStyle = {
-  minWidth: "50%",
-  margin: "auto",
+  minWidth: "40%",
+  marginTop: "3%",
   border: "1px groove rgba(122,122, 122, 0.4)",
-  backgroundImage: "linear-gradient(180deg, #555,rgba(118,118,118, .8))",
+  // backgroundImage: "linear-gradient(180deg, #555,rgba(118,118,118, .8))",
   boxShadow: "0px 0px 15px rgba(0,0,0,0.5)",
   borderRadius: "5px",
+  backgroundColor: "#eee",
+  padding: "5% 5% 0",
 };
 
 const formTitle = {
@@ -35,6 +37,13 @@ const formTitle = {
   width: "100%",
   marginBottom: "2.4rem",
   fontSize: "2rem",
+};
+
+const initialsStyle = {
+  backgroundColor: "rgb(46,46,46)",
+  display: "inline",
+  padding: "5px 20px 0",
+  fontSize: "3rem",
 };
 
 const Login = ({
@@ -50,7 +59,11 @@ const Login = ({
     <div className='login-page' style={{ ...loginPageStyle }}>
       <div className='container' style={{ minWidth: "max-content" }}>
         <div className='login-form' style={{ padding: "1rem" }}>
-          <h1 style={{ ...formTitle }}>Login</h1>
+          <div style={{ ...formTitle }}>
+            <h1 style={{ color: "black" }}>Welcome</h1>
+            <h1 style={{ ...initialsStyle }}>A</h1>
+          </div>
+
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -67,6 +80,10 @@ const Login = ({
                 onBlur={handleBlur}
                 touched={touched[field.name]}
                 errors={errors[field.name]}
+                // style={{
+                //   borderWidth: "0 0 1 0",
+                //   backgroundColor: "transparent",
+                // }}
               />
             ))}
             <div
@@ -77,10 +94,22 @@ const Login = ({
                 id='LoginButton'
                 className='btn btn-success text-uppercase'
                 type='submit'
-                style={{ width: "100%" }}
+                style={{
+                  width: "100%",
+                  borderRadius: "100px",
+                  padding: "4%",
+                  backgroundImage:
+                    "linear-gradient(60deg, rgb(40,208,245,.8),rgba(127,41,190, .8))",
+                  marginTop: "5%",
+                }}
               >
                 Login
               </button>
+              <div style={{ marginTop: "30%" }}>
+                <pre>
+                  Don't have an Account? <a href='#'> Signup</a>
+                </pre>
+              </div>
             </div>
           </form>
         </div>

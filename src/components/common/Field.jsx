@@ -1,4 +1,6 @@
 import React from "react";
+import MailOutlineIcon from "@material-ui/icons/MailOutline";
+import VisibilityIcon from "@material-ui/icons/Visibility";
 
 const Field = ({
   name,
@@ -12,8 +14,62 @@ const Field = ({
   value,
 }) => {
   return (
-    <div className='form-group'>
-      {elementName === "input" ? (
+    <div className='form-group input' style={{ height: "100%" }}>
+      {name === "email" ? (
+        <div style={{ display: "flex" }}>
+          <MailOutlineIcon
+            style={{
+              height: "auto",
+              borderBottom: "1px solid #ced4da",
+            }}
+          />
+          <input
+            name={name}
+            className='form-control'
+            id={name}
+            type={type}
+            placeholder={placeholder}
+            onBlur={onBlur}
+            value={value}
+            onChange={onChange}
+            required='required'
+            data-validation-required-message='Please enter your name.'
+            style={{
+              borderWidth: "0",
+              borderBottomWidth: "1px",
+              backgroundColor: "transparent",
+              borderRadius: "0",
+            }}
+          />
+        </div>
+      ) : name === "password" ? (
+        <div style={{ display: "flex" }}>
+          <input
+            name={name}
+            className='form-control'
+            id={name}
+            type={type}
+            placeholder={placeholder}
+            onBlur={onBlur}
+            value={value}
+            onChange={onChange}
+            required='required'
+            data-validation-required-message='Please enter your name.'
+            style={{
+              borderWidth: "0",
+              borderBottomWidth: "1px",
+              backgroundColor: "transparent",
+              borderRadius: "0",
+            }}
+          />
+          <VisibilityIcon
+            style={{
+              height: "auto",
+              borderBottom: "1px solid #ced4da",
+            }}
+          />
+        </div>
+      ) : elementName === "input" ? (
         <input
           name={name}
           className='form-control'
@@ -25,6 +81,12 @@ const Field = ({
           onChange={onChange}
           required='required'
           data-validation-required-message='Please enter your name.'
+          style={{
+            borderWidth: "0",
+            borderBottomWidth: "1px",
+            backgroundColor: "transparent",
+            borderRadius: "0",
+          }}
         />
       ) : (
         <textarea
