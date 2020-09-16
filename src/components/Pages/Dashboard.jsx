@@ -10,6 +10,9 @@ import { Drawer, List, ListItem, IconButton, Divider } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 
+// Component
+import SideBar from "../common/SideBar";
+
 const drawerWidth = 240;
 
 const styles = (theme) => ({
@@ -99,9 +102,10 @@ const Dashboard = ({ auth: { token }, classes, ...props }) => {
           </IconButton>
         </div>
         <Divider />
-        <List>
+        {/* <List>
           <ListItem>Dashboard</ListItem>
-        </List>
+        </List> */}
+        <SideBar />
       </Drawer>
       <h2>You are Logged in with token {token}</h2>
     </div>
