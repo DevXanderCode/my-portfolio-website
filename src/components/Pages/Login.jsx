@@ -41,9 +41,10 @@ const formTitle = {
 
 const initialsStyle = {
   backgroundColor: "rgb(46,46,46)",
-  display: "inline",
+  display: "inline-block",
   padding: "5px 20px 0",
   fontSize: "3rem",
+  marginTop: "2%",
 };
 
 const Login = ({
@@ -57,7 +58,7 @@ const Login = ({
 }) => {
   return (
     <div className='login-page' style={{ ...loginPageStyle }}>
-      <div className='container' style={{ minWidth: "max-content" }}>
+      <div className='container'>
         <div className='login-form' style={{ padding: "1rem" }}>
           <div style={{ ...formTitle }}>
             <h1 style={{ color: "black" }}>Welcome</h1>
@@ -80,10 +81,6 @@ const Login = ({
                 onBlur={handleBlur}
                 touched={touched[field.name]}
                 errors={errors[field.name]}
-                // style={{
-                //   borderWidth: "0 0 1 0",
-                //   backgroundColor: "transparent",
-                // }}
               />
             ))}
             <div
@@ -107,7 +104,11 @@ const Login = ({
               </button>
               <div style={{ marginTop: "30%" }}>
                 <pre>
-                  Don't have an Account? <a href='#'> Signup</a>
+                  Don't have an Account?
+                  <a href='#' style={{ color: "green" }}>
+                    {" "}
+                    Signup
+                  </a>
                 </pre>
               </div>
             </div>

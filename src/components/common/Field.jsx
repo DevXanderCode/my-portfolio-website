@@ -14,7 +14,7 @@ const Field = ({
   value,
 }) => {
   return (
-    <div className='form-group input' style={{ height: "100%" }}>
+    <div className='form-group input'>
       {name === "email" ? (
         <div style={{ display: "flex" }}>
           <MailOutlineIcon
@@ -39,6 +39,8 @@ const Field = ({
               borderBottomWidth: "1px",
               backgroundColor: "transparent",
               borderRadius: "0",
+              outline: "none !important",
+              outlineWidth: "0",
             }}
           />
         </div>
@@ -105,7 +107,7 @@ const Field = ({
       {/* {console.log(formValue)} */}
       <p className='help-block text-danger'>
         {touched && errors && (
-          <span style={{ fontSize: "1.2rem", color: "yellow" }}>{errors}</span>
+          <span style={{ fontSize: "1.2rem", color: "red" }}>{errors}</span>
         )}
       </p>
     </div>
