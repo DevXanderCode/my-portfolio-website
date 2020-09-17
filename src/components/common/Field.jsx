@@ -15,6 +15,7 @@ const input = {
   borderRadius: "0",
   outline: "none !important",
   outlineWidth: "0",
+  color: "rgba(127, 41, 190, 0.8)",
 };
 
 const Field = ({
