@@ -47,6 +47,15 @@ const initialsStyle = {
   marginTop: "2%",
 };
 
+const LoginButton = {
+  width: "100%",
+  borderRadius: "100px",
+  padding: "4%",
+  backgroundImage:
+    "linear-gradient(60deg, rgb(40,208,245,.8),rgba(127,41,190, .8))",
+  marginTop: "5%",
+};
+
 const Login = ({
   handleChange,
   handleSubmit,
@@ -92,12 +101,7 @@ const Login = ({
                 className='btn btn-success text-uppercase'
                 type='submit'
                 style={{
-                  width: "100%",
-                  borderRadius: "100px",
-                  padding: "4%",
-                  backgroundImage:
-                    "linear-gradient(60deg, rgb(40,208,245,.8),rgba(127,41,190, .8))",
-                  marginTop: "5%",
+                  ...LoginButton,
                 }}
               >
                 Login

@@ -2,6 +2,21 @@ import React from "react";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 
+const iconContainer = {
+  display: "flex",
+  borderBottom: "1px solid #ced4da",
+  alignItems: "center",
+};
+
+const input = {
+  borderWidth: "0",
+  borderBottomWidth: "1px",
+  backgroundColor: "transparent",
+  borderRadius: "0",
+  outline: "none !important",
+  outlineWidth: "0",
+};
+
 const Field = ({
   name,
   elementName,
@@ -17,12 +32,9 @@ const Field = ({
     <div className='form-group input'>
       {name === "email" ? (
         <div style={{ display: "flex" }}>
-          <MailOutlineIcon
-            style={{
-              height: "auto",
-              borderBottom: "1px solid #ced4da",
-            }}
-          />
+          <div style={{ ...iconContainer }}>
+            <MailOutlineIcon />
+          </div>
           <input
             name={name}
             className='form-control'
@@ -34,14 +46,7 @@ const Field = ({
             onChange={onChange}
             required='required'
             data-validation-required-message='Please enter your name.'
-            style={{
-              borderWidth: "0",
-              borderBottomWidth: "1px",
-              backgroundColor: "transparent",
-              borderRadius: "0",
-              outline: "none !important",
-              outlineWidth: "0",
-            }}
+            style={{ ...input }}
           />
         </div>
       ) : name === "password" ? (
@@ -57,20 +62,11 @@ const Field = ({
             onChange={onChange}
             required='required'
             data-validation-required-message='Please enter your name.'
-            style={{
-              borderWidth: "0",
-              borderBottomWidth: "1px",
-              backgroundColor: "transparent",
-              borderRadius: "0",
-            }}
+            style={{ ...input }}
           />
-          <VisibilityIcon
-            style={{
-              height: "auto",
-              borderBottom: "1px solid #ced4da",
-              cursor: "pointer",
-            }}
-          />
+          <div style={{ ...iconContainer }}>
+            <VisibilityIcon style={{ cursor: "pointer" }} />
+          </div>
         </div>
       ) : elementName === "input" ? (
         <input
@@ -84,12 +80,7 @@ const Field = ({
           onChange={onChange}
           required='required'
           data-validation-required-message='Please enter your name.'
-          style={{
-            borderWidth: "0",
-            borderBottomWidth: "1px",
-            backgroundColor: "transparent",
-            borderRadius: "0",
-          }}
+          style={{ ...input }}
         />
       ) : (
         <textarea
@@ -99,13 +90,11 @@ const Field = ({
           onChange={onChange}
           onBlur={onBlur}
           value={value}
-          // onChange={(e) => onChange(e)}
           placeholder={placeholder}
           required='required'
           data-validation-required-message='Please enter a message.'
         />
       )}
-      {/* {console.log(formValue)} */}
       <p className='help-block text-danger'>
         {touched && errors && (
           <span style={{ fontSize: "1.2rem", color: "red" }}>{errors}</span>
