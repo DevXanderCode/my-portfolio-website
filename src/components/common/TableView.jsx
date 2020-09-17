@@ -25,11 +25,11 @@ const TableView = ({ rows, columns }) => {
         <TableBody>
           <TableRow>
             {rows
-              ? rows.map((row, i) => {
+              ? rows.map((row, i) =>
                   columns.map((col, idx) => (
                     <TableCell key={idx}>{row[col.name]}</TableCell>
-                  ));
-                })
+                  ))
+                )
               : null}
           </TableRow>
         </TableBody>

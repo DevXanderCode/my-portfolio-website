@@ -4,15 +4,21 @@ import { connect } from "react-redux";
 import TableView from "../../common/TableView";
 import * as AdminActions from "../../../store/actions/adminActons";
 
-const Posts = ({ auth, ...props }) => {
+const Posts = ({ auth, admin: { posts }, getPosts, ...props }) => {
   const columns = [
     { label: "ID", name: "id" },
     { label: "Title", name: "title" },
   ];
+
+  React.useEffect(() => {
+    getPosts(auth.token);
+  }, []);
+
   return (
     <div style={{ padding: "0", margin: "0" }}>
       <h4>Testing Posts</h4>
-      <TableView columns={columns} rows={[]} />
+      {console.log("post", posts)}
+      <TableView columns={columns} rows={posts} />
     </div>
   );
 };
@@ -20,6 +26,7 @@ const Posts = ({ auth, ...props }) => {
 const mapStateToProps = (state) => {
   return {
     auth: state.auth,
+    admin: state.admin,
   };
 };
 
