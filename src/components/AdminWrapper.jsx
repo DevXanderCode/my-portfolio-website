@@ -81,13 +81,7 @@ const AdminWrapper = ({ classes, ...props }) => {
     setDrawerState({ open: false });
   };
   return (
-    <div
-      id='admin-page'
-      style={{
-        display: "flex",
-        minHeight: "100%",
-      }}
-    >
+    <div id='admin-page'>
       <div style={{ padding: "0", margin: "0" }} className={classes.root}>
         <AppBar
           className={classNames(
