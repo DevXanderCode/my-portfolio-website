@@ -1,5 +1,6 @@
 import * as React from "react";
-import { withRouter } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import { Link } from "@material-ui/core";
 import { connect } from "react-redux";
 import Fab from "@material-ui/core/Fab";
 import EditIcon from "@material-ui/icons/Edit";
@@ -8,10 +9,14 @@ import TableView from "../../common/TableView";
 import * as AdminActions from "../../../store/actions/adminActons";
 
 const styles = (theme) => ({
-  fab: {},
+  fab: {
+    position: "fixed",
+    bottom: "50px",
+    right: "50px",
+  },
 });
 
-const Posts = ({ auth, admin: { posts }, getPosts, ...props }) => {
+const Posts = ({ auth, admin: { posts }, getPosts, classes, ...props }) => {
   const columns = [
     { label: "ID", name: "id" },
     { label: "Title", name: "title" },
@@ -26,6 +31,15 @@ const Posts = ({ auth, admin: { posts }, getPosts, ...props }) => {
       <h4>Testing Posts</h4>
       {console.log("post", posts)}
       <TableView columns={columns} rows={posts} />
+      <Fab
+        component={RouterLink}
+        to='/admin/posts/add'
+        color='secondary'
+        arial-label='Add'
+        className={classes.fab}
+      >
+        <EditIcon />
+      </Fab>
     </div>
   );
 };
@@ -45,4 +59,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Posts));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(Posts));
