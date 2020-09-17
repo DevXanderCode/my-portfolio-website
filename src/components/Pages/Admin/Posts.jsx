@@ -1,8 +1,15 @@
 import * as React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import Fab from "@material-ui/core/Fab";
+import EditIcon from "@material-ui/icons/Edit";
+import { withStyles } from "@material-ui/core/styles";
 import TableView from "../../common/TableView";
 import * as AdminActions from "../../../store/actions/adminActons";
+
+const styles = (theme) => ({
+  fab: {},
+});
 
 const Posts = ({ auth, admin: { posts }, getPosts, ...props }) => {
   const columns = [
