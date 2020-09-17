@@ -17,7 +17,7 @@ import AdminWrapper from "./components/AdminWrapper";
 import LoginWrapper from "./components/LoginWrapper";
 
 // Admin Pages
-import { Dashboard, Users, Posts } from "./components/Pages/Admin";
+import { Dashboard, Users, Posts, AddPost } from "./components/Pages/Admin";
 
 function App({ auth }) {
   return (
@@ -42,6 +42,7 @@ function App({ auth }) {
         }}
       />
       <Route
+        exact
         path='/admin/posts'
         render={(props) => {
           return (
@@ -67,6 +68,24 @@ function App({ auth }) {
               {auth.token ? (
                 <AdminWrapper>
                   <Users {...props} />
+                </AdminWrapper>
+              ) : (
+                <LoginWrapper>
+                  <Login {...props} />
+                </LoginWrapper>
+              )}
+            </div>
+          );
+        }}
+      />
+      <Route
+        path='/admin/posts/add'
+        render={(props) => {
+          return (
+            <div>
+              {auth.token ? (
+                <AdminWrapper>
+                  <AddPost {...props} />
                 </AdminWrapper>
               ) : (
                 <LoginWrapper>
