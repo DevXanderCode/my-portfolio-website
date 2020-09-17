@@ -1,5 +1,6 @@
 import * as React from "react";
 import TableView from "../../common/TableView";
+import { connect } from "react-redux";
 
 const Users = (props) => {
   const columns = [
@@ -16,4 +17,15 @@ const Users = (props) => {
   );
 };
 
-export default Users;
+const mapStateToProps = (state) => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {};
+};
+
+export default connect({
+  mapStateToProps,
+  mapDispatchToProps,
+})(Users);
