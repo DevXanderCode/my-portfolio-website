@@ -6,8 +6,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  ListSubheader,
-  Link,
+  // ListSubheader,
+  // Link,
 } from "@material-ui/core";
 // Icons
 import FaceIcon from "@material-ui/icons/Face";
