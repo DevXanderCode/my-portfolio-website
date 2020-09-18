@@ -2,6 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Paper, Button } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
+import SaveIcon from "@material-ui/icons/Save";
 import { withFormik, Form } from "formik";
 import { FormikTextField, FormikSelectField } from "formik-material-fields";
 import * as YUP from "yup";
@@ -69,7 +70,18 @@ const AddPost = ({
             fullWidth
           />
         </Paper>
-        <Paper className={classes.rightSide}></Paper>
+        <Paper className={classes.rightSide}>
+          <FormikSelectField
+            name='status'
+            label='Status'
+            options={[
+              { label: "Unpublished", value: "false" },
+              { label: "Published", value: "true" },
+            ]}
+            margin='normal'
+            fullWidth
+          />
+        </Paper>
       </Form>
     </div>
   );
