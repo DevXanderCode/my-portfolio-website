@@ -105,7 +105,11 @@ const mapStateToProps = (state) => ({
   admin: state.admin,
 });
 
-const mapDispatchToProps = (dispatch) => ({});
+const mapDispatchToProps = (dispatch) => ({
+  addPost: (posts, token) => {
+    dispatch(AdminActions.addPost(posts, token));
+  },
+});
 
 export default connect(
   mapStateToProps,
