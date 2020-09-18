@@ -12,7 +12,8 @@ const Users = ({ auth, getUsers, admin: { user }, ...props }) => {
 
   React.useEffect(() => {
     getUsers(auth.token);
-  }, [auth.token]);
+  }, []);
+
   return (
     <div style={{ padding: "0", margin: "0" }}>
       <h1> testing Users</h1>

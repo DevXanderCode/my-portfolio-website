@@ -37,11 +37,14 @@ const AddPost = ({
   values,
   setFieldValue,
   setFieldTouched,
+  handleSubmit,
+  isValid,
   ...props
 }) => {
   return (
     <div className={classes.container}>
       <h1>Add Posts</h1>
+
       <Form className={classes.formControl}>
         <Paper className={classes.leftSide}>
           <FormikTextField
@@ -77,12 +80,20 @@ const AddPost = ({
             name='status'
             label='Status'
             options={[
-              { label: "Unpublished", value: "false" },
-              { label: "Published", value: "true" },
+              { label: "Unpublished", value: `false` },
+              { label: "Published", value: `true` },
             ]}
             margin='normal'
             fullWidth
           />
+          <Button
+            color='secondary'
+            variant='contained'
+            onClick={(e) => handleSubmit()}
+          >
+            <SaveIcon />
+            Save
+          </Button>
         </Paper>
       </Form>
     </div>
@@ -113,6 +124,8 @@ export default connect(
       slug: YUP.string().required(),
       content: YUP.string().required(),
     }),
-    handleSubmit: (values, { setSubmittind }) => {},
+    handleSubmit: (values, { setSubmittind }) => {
+      console.log("Saving ...");
+    },
   })(withStyles(styles)(AddPost))
 );

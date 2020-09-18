@@ -24,7 +24,7 @@ const Posts = ({ auth, admin: { posts }, getPosts, classes, ...props }) => {
 
   React.useEffect(() => {
     getPosts(auth.token);
-  }, []);
+  }, [auth.token]);
 
   return (
     <div style={{ padding: "0", margin: "0" }}>
