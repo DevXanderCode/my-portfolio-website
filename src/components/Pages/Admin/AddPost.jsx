@@ -1,9 +1,9 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { paper } from "@material-ui/core";
+import { Paper, Button } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { withFormik, Form } from "formik";
-import { FormikTextField } from "formik-material-fields";
+import { FormikTextField, FormikSelectField } from "formik-material-fields";
 import * as YUP from "yup";
 import * as AdminActions from "../../../store/actions/adminActons";
 
@@ -13,6 +13,18 @@ const styles = (theme) => ({
   },
   formControl: {
     margin: theme.spacing(1),
+  },
+  leftSide: {
+    margin: theme.spacing(3),
+    padding: theme.spacing(3),
+    flex: 4,
+    height: "100%",
+  },
+  rigthSide: {
+    flex: 1,
+    height: "100%",
+    margin: theme.spacing(3),
+    padding: theme.spacing(3),
   },
 });
 
@@ -28,33 +40,36 @@ const AddPost = ({
       {console.log("values: ", values.title)}
       <h1>Add Posts</h1>
       <Form>
-        <FormikTextField
-          name='title'
-          label='Title'
-          margin='normal'
-          onChange={(e) => {
-            return (
-              setFieldValue(
-                "slug",
-                e.target.value.toLowerCase().replace(/ /g, "_")
-              ),
-              setFieldTouched("slug", true, false)
-            );
-          }}
-          fullWidth
-        />
-        <FormikTextField
-          name='slug'
-          // label='Slug'
-          placeholder='Slug'
-          margin='normal'
-        />
-        <FormikTextField
-          name='content'
-          label='content'
-          margin='normal'
-          fullWidth
-        />
+        <Paper className={classes.leftSide}>
+          <FormikTextField
+            name='title'
+            label='Title'
+            margin='normal'
+            onChange={(e) => {
+              return (
+                setFieldValue(
+                  "slug",
+                  e.target.value.toLowerCase().replace(/ /g, "_")
+                ),
+                setFieldTouched("slug", true, false)
+              );
+            }}
+            fullWidth
+          />
+          <FormikTextField
+            name='slug'
+            // label='Slug'
+            placeholder='Slug'
+            margin='normal'
+          />
+          <FormikTextField
+            name='content'
+            label='content'
+            margin='normal'
+            fullWidth
+          />
+        </Paper>
+        <Paper className={classes.rightSide}></Paper>
       </Form>
     </div>
   );
