@@ -10,22 +10,25 @@ import * as AdminActions from "../../../store/actions/adminActons";
 
 const styles = (theme) => ({
   container: {
-    margin: theme.spacing(3),
-  },
-  formControl: {
     margin: theme.spacing(1),
   },
+  formControl: {
+    // margin: theme.spacing(1),
+    display: "flex",
+    flexDirection: "row wrap",
+    width: "100%",
+  },
   leftSide: {
-    margin: theme.spacing(3),
+    margin: theme.spacing(1),
     padding: theme.spacing(3),
-    flex: 4,
+    flex: 2,
     height: "100%",
   },
-  rigthSide: {
+  rightSide: {
+    margin: theme.spacing(1),
+    padding: theme.spacing(1),
     flex: 1,
     height: "100%",
-    margin: theme.spacing(3),
-    padding: theme.spacing(3),
   },
 });
 
@@ -38,9 +41,8 @@ const AddPost = ({
 }) => {
   return (
     <div className={classes.container}>
-      {console.log("values: ", values.title)}
       <h1>Add Posts</h1>
-      <Form>
+      <Form className={classes.formControl}>
         <Paper className={classes.leftSide}>
           <FormikTextField
             name='title'
