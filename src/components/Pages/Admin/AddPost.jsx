@@ -3,9 +3,10 @@ import { connect } from "react-redux";
 import { Paper, Button } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import SaveIcon from "@material-ui/icons/Save";
-import { withFormik, Form } from "formik";
+import { withFormik, Form, Formik } from "formik";
 import { FormikTextField, FormikSelectField } from "formik-material-fields";
 import * as YUP from "yup";
+import FormikSelect from "../../common/FormikSelect/index";
 import * as AdminActions from "../../../store/actions/adminActons";
 
 const styles = (theme) => ({
@@ -32,70 +33,85 @@ const styles = (theme) => ({
   },
 });
 
+const initialValues = {
+  title: "",
+  slug: "",
+  createdAt: "",
+  status: false,
+  content: "",
+}
+
+const statusItems = [{label: 'Published', value: true}, {label: 'Unpulished', value: false}];
+
+const postSchema = YUP.object().shape({
+  title: YUP.string().required("Post Title is Requiured"),
+  slug: YUP.string().required(),
+  content: YUP.string().required(),
+});
+
+const handleSubmit = (values) => {
+  console.log("Saving ...");
+}
+
 const AddPost = ({
   classes,
-  values,
-  setFieldValue,
-  setFieldTouched,
-  handleSubmit,
-  isValid,
   ...props
 }) => {
+
+ 
   return (
     <div className={classes.container}>
       <h1>Add Posts</h1>
+    <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={postSchema}>
+      {({isValid, dirty,  setFieldValue, values,
+  setFieldTouched,
+  }) => (
+ <Form className={classes.formControl}>
+ <Paper className={classes.leftSide}>
+   <FormikTextField
+     name='title'
+     label='Title'
+     margin='normal'
+     onChange={(e) => {
+       return (
+         setFieldValue(
+           "slug",
+           e.target.value.toLowerCase().replace(/ /g, "_")
+         ),
+         setFieldTouched("slug", true, false)
+       );
+     }}
+     fullWidth
+   />
+   <FormikTextField
+     name='slug'
+     // label='Slug'
+     placeholder='Slug'
+     margin='normal'
+   />
+   <FormikTextField
+     name='content'
+     label='content'
+     margin='normal'
+     fullWidth
+   />
+ </Paper>
+ <Paper className={classes.rightSide}>
+   <FormikSelect label='Status' name='status' items={statusItems} required />
+   <Button disabled={!isValid || !dirty}
+     color='secondary'
+     variant='contained'
+     onClick={(e) => handleSubmit()}
+   >
+     <SaveIcon />
+     Save
+   </Button>
+ </Paper>
+</Form>
+      )}
+   
+    </Formik>
 
-      <Form className={classes.formControl}>
-        <Paper className={classes.leftSide}>
-          <FormikTextField
-            name='title'
-            label='Title'
-            margin='normal'
-            onChange={(e) => {
-              return (
-                setFieldValue(
-                  "slug",
-                  e.target.value.toLowerCase().replace(/ /g, "_")
-                ),
-                setFieldTouched("slug", true, false)
-              );
-            }}
-            fullWidth
-          />
-          <FormikTextField
-            name='slug'
-            // label='Slug'
-            placeholder='Slug'
-            margin='normal'
-          />
-          <FormikTextField
-            name='content'
-            label='content'
-            margin='normal'
-            fullWidth
-          />
-        </Paper>
-        <Paper className={classes.rightSide}>
-          <FormikSelectField
-            name='status'
-            label='Status'
-            options={[
-              { label: "Unpublished", value: `false` },
-              { label: "Published", value: `true` },
-            ]}
-            margin='normal'
-            fullWidth
-          />
-          <Button
-            color='secondary'
-            variant='contained'
-            onClick={(e) => handleSubmit()}
-          >
-            <SaveIcon />
-            Save
-          </Button>
-        </Paper>
-      </Form>
     </div>
   );
 };
@@ -114,22 +130,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(
-  withFormik({
-    mapPropstoValues: () => ({
-      title: "",
-      slug: "",
-      createdAt: "",
-      status: false,
-      content: "",
-    }),
-    validationSchema: YUP.object().shape({
-      title: YUP.string().required("Post Title is Requiured"),
-      slug: YUP.string().required(),
-      content: YUP.string().required(),
-    }),
-    handleSubmit: (values, { setSubmittind }) => {
-      console.log("Saving ...");
-    },
-  })(withStyles(styles)(AddPost))
-);
+)(withStyles(styles)(AddPost));
