@@ -1,9 +1,10 @@
-import React from "react";
+import * as React from "react";
 import * as YUP from "yup";
 import { Form, Formik } from "formik";
 import { connect } from "react-redux";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import VisibilityOffSharpIcon from '@material-ui/icons/VisibilityOffSharp';
 import * as AuthActions from "../../store/actions/authActions";
 import FormikField from "../common/FormikField";
 
@@ -65,7 +66,7 @@ const loginSchema = YUP.object().shape({
   password: YUP.string().required("please enter your Password"),
 });
 
-let fieldType = `password`;
+
 
 const Login = ({
   handleChange,
@@ -76,6 +77,8 @@ const Login = ({
   values,
   login,
 }) => {
+  
+const [fieldType, setFieldType] = React.useState('password');
   return (
     <div className='login-page' style={{ ...loginPageStyle }}>
       <div className='container'>
@@ -95,9 +98,12 @@ const Login = ({
                  <FormikField type={'text'} label={'Email'} name={'email'} fullwidth required style={{display: 'flex', flexGrow: '100'}}/>
                  </div>
                  <div style={{display: 'flex'}}>
-                 <FormikField type={`${fieldType}`} label={'Password'} name={'password'} fullwidth required style={{display: 'flex', flexGrow: '100'}}/>
-                   <div style={{ ...iconContainer }}>
-                     <VisibilityIcon style={{ cursor: "pointer" }} onClick={(e) =>{fieldType = `text`; console.log(`field type: ${fieldType}`)} }/>
+                 <FormikField type={fieldType} label={'Password'} name={'password'} fullwidth required style={{display: 'flex', flexGrow: '100'}}/>
+                   <div style={{ ...iconContainer }} onClick={(e) =>(fieldType === `text` ? setFieldType(`password`) : setFieldType(`text`))}>
+                     {fieldType === 'password' ? 
+                      <VisibilityIcon style={{ cursor: "pointer" }}  />
+                     : <VisibilityOffSharpIcon style={{ cursor: "pointer" }}/>}
+                     
                     </div>
                  </div>
                  <button
