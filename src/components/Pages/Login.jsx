@@ -1,27 +1,12 @@
 import React from "react";
 import * as YUP from "yup";
-import { withFormik, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import { connect } from "react-redux";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import * as AuthActions from "../../store/actions/authActions";
 import FormikField from "../common/FormikField";
-import Field from "../common/Field";
 
-const fields = [
-  {
-    name: "email",
-    elementName: "input",
-    type: "email",
-    placeholder: "Your email",
-  },
-  {
-    name: "password",
-    elementName: "input",
-    type: "password",
-    placeholder: "Your password",
-  },
-];
 
 const loginPageStyle = {
   minWidth: "40%",
@@ -80,6 +65,8 @@ const loginSchema = YUP.object().shape({
   password: YUP.string().required("please enter your Password"),
 });
 
+let fieldType = `password`;
+
 const Login = ({
   handleChange,
   handleSubmit,
@@ -99,7 +86,7 @@ const Login = ({
           </div>
 
           <Formik initialValues={initialValues} validationSchema={loginSchema} onSubmit={handleSubmit}>
-            {({isValid, dirty, values, ...props}) => (
+            {({isValid, dirty, values,handleSubmit, ...props}) => (
                  <Form>
                  <div style={{display: 'flex'}}>
                    <div style={{ ...iconContainer }}>
@@ -107,41 +94,20 @@ const Login = ({
                     </div>
                  <FormikField type={'text'} label={'Email'} name={'email'} fullwidth required style={{display: 'flex', flexGrow: '100'}}/>
                  </div>
-                   
-               </Form>
-            )}
-           
-          </Formik>
-
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              login(values.email, values.password);
-            }}
-          >
-            {fields.map((field, idx) => (
-              <Field
-                {...field}
-                key={idx}
-                value={values[field.name]}
-                onChange={handleChange}
-                name={field.name}
-                onBlur={handleBlur}
-                touched={touched[field.name]}
-                errors={errors[field.name]}
-              />
-            ))}
-            <div
-              className='col-md-12 text-center'
-              style={{ width: "100%", padding: "0" }}
-            >
-              <button
+                 <div style={{display: 'flex'}}>
+                 <FormikField type={`${fieldType}`} label={'Password'} name={'password'} fullwidth required style={{display: 'flex', flexGrow: '100'}}/>
+                   <div style={{ ...iconContainer }}>
+                     <VisibilityIcon style={{ cursor: "pointer" }} onClick={(e) =>{fieldType = `text`; console.log(`field type: ${fieldType}`)} }/>
+                    </div>
+                 </div>
+                 <button
                 id='LoginButton'
                 className='btn btn-success text-uppercase'
                 type='submit'
                 style={{
                   ...LoginButton,
                 }}
+                disabled={!isValid }
               >
                 Login
               </button>
@@ -154,8 +120,9 @@ const Login = ({
                   </a>
                 </pre>
               </div>
-            </div>
-          </form>
+               </Form>
+            )}
+          </Formik>
         </div>
       </div>
     </div>
@@ -180,22 +147,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(
-  withFormik({
-    mapPropsToValues: () => ({
-      email: "",
-      password: "",
-    }),
-    validationSchema: YUP.object().shape({
-      email: YUP.string()
-        .email("please enter a valid email")
-        .required("Please you need to login with an email address"),
-      password: YUP.string().required("please enter your Password"),
-    }),
-    // handleSubmit: (values, { setSubmitting }, login) => {
-    //   alert(JSON.stringify(values));
-    //   // console.log("form values are: ", values);
-    //   login(values.email, values.password);
-    // },
-  })(Login)
-);
+)(Login);
