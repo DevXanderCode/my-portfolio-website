@@ -88,9 +88,9 @@ const [fieldType, setFieldType] = React.useState('password');
             <h1 style={{ ...initialsStyle }}>A</h1>
           </div>
 
-          <Formik initialValues={initialValues} validationSchema={loginSchema} onSubmit={handleSubmit}>
-            {({isValid, dirty, values,handleSubmit, ...props}) => (
-                 <Form>
+          <Formik initialValues={initialValues} validationSchema={loginSchema} >
+            {({isValid, dirty, values, isSubmitting, ...props}) => (
+                 <Form onSubmit={e => {e.preventDefault(); login(values.email, values.password)}}>
                  <div style={{display: 'flex'}}>
                    <div style={{ ...iconContainer }}>
                      <MailOutlineIcon />
@@ -102,7 +102,7 @@ const [fieldType, setFieldType] = React.useState('password');
                    <div style={{ ...iconContainer }} onClick={(e) =>(fieldType === `text` ? setFieldType(`password`) : setFieldType(`text`))}>
                      {fieldType === 'password' ? 
                       <VisibilityIcon style={{ cursor: "pointer" }}  />
-                     : <VisibilityOffSharpIcon style={{ cursor: "pointer" }}/>}
+                     : <VisibilityOffSharpIcon style={{ cursor: "pointer" }} />}
                      
                     </div>
                  </div>
