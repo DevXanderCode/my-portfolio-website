@@ -1,9 +1,12 @@
 import React from "react";
-import Field from "../common/Field";
 import * as YUP from "yup";
-import { withFormik } from "formik";
+import { withFormik, Form, Formik } from "formik";
 import { connect } from "react-redux";
+import MailOutlineIcon from "@material-ui/icons/MailOutline";
+import VisibilityIcon from "@material-ui/icons/Visibility";
 import * as AuthActions from "../../store/actions/authActions";
+import FormikField from "../common/FormikField";
+import Field from "../common/Field";
 
 const fields = [
   {
@@ -56,6 +59,27 @@ const LoginButton = {
   marginTop: "5%",
 };
 
+const iconContainer = {
+  display: "flex",
+  borderBottom: "1px solid rgba(0, 0, 0, 0.42)",
+  margin:  `calc(13px + .rem) 0`,
+  alignItems: "flex-end",
+  paddingBottom : '3px',
+  height: `58px`
+};
+
+const initialValues = {
+  email: "",
+  password: "",
+}
+
+const loginSchema = YUP.object().shape({
+  email: YUP.string()
+    .email("please enter a valid email")
+    .required("Please you need to login with an email address"),
+  password: YUP.string().required("please enter your Password"),
+});
+
 const Login = ({
   handleChange,
   handleSubmit,
@@ -73,6 +97,21 @@ const Login = ({
             <h1 style={{ color: "black" }}>Welcome</h1>
             <h1 style={{ ...initialsStyle }}>A</h1>
           </div>
+
+          <Formik initialValues={initialValues} validationSchema={loginSchema} onSubmit={handleSubmit}>
+            {({isValid, dirty, values, ...props}) => (
+                 <Form>
+                 <div style={{display: 'flex'}}>
+                   <div style={{ ...iconContainer }}>
+                     <MailOutlineIcon />
+                    </div>
+                 <FormikField type={'text'} label={'Email'} name={'email'} fullwidth required style={{display: 'flex', flexGrow: '100'}}/>
+                 </div>
+                   
+               </Form>
+            )}
+           
+          </Formik>
 
           <form
             onSubmit={(e) => {

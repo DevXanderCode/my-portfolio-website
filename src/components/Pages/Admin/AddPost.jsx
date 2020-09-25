@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Paper, Button } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import SaveIcon from "@material-ui/icons/Save";
-import { withFormik, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import { FormikTextField, FormikSelectField } from "formik-material-fields";
 import * as YUP from "yup";
 import FormikSelect from "../../common/FormikSelect/index";
