@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import { Paper, Button } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import SaveIcon from "@material-ui/icons/Save";
-import { Form, Formik } from "formik";
+import { Form, Formik, withFormik } from "formik";
 import { FormikTextField } from "formik-material-fields";
 import * as YUP from "yup";
 import FormikSelect from "../../common/FormikSelect/index";
@@ -59,6 +59,11 @@ const AddPost = ({
   classes,
   handleSubmit,
   isSubmitting,
+  isValid, 
+  dirty, 
+  setFieldValue,
+  values,
+  setFieldTouched,
   ...props
 }) => {
 
@@ -66,13 +71,6 @@ const AddPost = ({
   return (
     <div className={classes.container}>
       <h1>Add Posts</h1>
-      <Formik initialValues={initialValues} validationSchema={postSchema} onSubmit={(e) => (values, { setSubmitting, props }) => {
-        e.preventDefault();
-        console.log("saving");
-      }}>
-        {({ isValid, dirty, setFieldValue, values,
-          setFieldTouched,
-        }) => (
             <Form className={classes.formControl} onSubmit={handleSubmit}>
               <Paper className={classes.leftSide}>
                 <FormikTextField
@@ -109,17 +107,12 @@ const AddPost = ({
                   color='secondary'
                   variant='contained'
                   type="submit"
-                //  onClick={(e) => handleSubmit()}
                 >
                   <SaveIcon />
                   {isSubmitting ? "Saving" : "Save"}
                 </Button>
               </Paper>
             </Form>
-          )}
-
-      </Formik>
-
     </div>
   );
 };
@@ -138,4 +131,12 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(AddPost));
+)(withFormik({
+  mapPropsToValues: () => ({
+    ...initialValues
+  }),
+  validationSchema: postSchema,
+  handleSubmit: (values, { setSubmitting, props }) => {
+    console.log("saving", props.addPost)
+  }
+})(withStyles(styles)(AddPost)));
