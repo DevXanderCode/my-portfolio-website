@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { withSytles } from '@material-ui/core/styles';
-import { Table, TableHead, TableBody, TableRow, TableCell, Paper } from '@material-ui/core';
+import { Link as RouterLink } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+import { Table, TableHead, TableBody, TableRow, TableCell, Paper, Link } from '@material-ui/core';
 
 const TableView = ({ rows, columns }) => {
 	return (
@@ -15,7 +16,17 @@ const TableView = ({ rows, columns }) => {
 					{rows ? (
 						rows.map((row, i) => (
 							<TableRow>
-								{columns.map((col, idx) => <TableCell key={idx}>{row[col.name]}</TableCell>)}
+								{columns.map((col, idx) => (
+									<TableCell key={idx}>
+										{col.name === 'id' ? (
+											<Link to={`/admin/posts/edit/${row[col.name]}`} component={RouterLink}>
+												{row[col.name]}
+											</Link>
+										) : (
+											row[col.name]
+										)}
+									</TableCell>
+								))}
 							</TableRow>
 						))
 					) : null}

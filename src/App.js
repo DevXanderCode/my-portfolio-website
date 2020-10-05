@@ -72,6 +72,24 @@ function App({ auth }) {
 				}}
 			/>
 			<Route
+				path="/admin/posts/:view/:id"
+				render={(props) => {
+					return (
+						<div>
+							{auth.token ? (
+								<AdminWrapper>
+									<AddPost {...props} />
+								</AdminWrapper>
+							) : (
+								<LoginWrapper>
+									<Login {...props} />
+								</LoginWrapper>
+							)}
+						</div>
+					);
+				}}
+			/>
+			<Route
 				path="/admin/posts/:view"
 				render={(props) => {
 					return (

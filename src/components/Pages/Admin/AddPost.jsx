@@ -66,8 +66,8 @@ const AddPost = ({
 	setFieldTouched,
 	...props
 }) => {
-	const didMountRef = React.useRef(false);
-console.log("logging props outside eefect", props);
+  const didMountRef = React.useRef(false);
+  
 	React.useEffect(() => {
 		if (didMountRef.current) {
       if(props.admin.posts === undefined){
@@ -78,15 +78,12 @@ console.log("logging props outside eefect", props);
 				props.admin.posts.filter((p) => p.title === values.title).length > 0
 			) {
         const post = props.admin.posts.filter((p) => p.title === values.title)[0];
-        console.log("logging post", post);
-        console.log("logging values", values);
 				props.history.push(`/admin/posts/edit/${post.id}`);
       }
       else{
         props.history.push("/admin/posts")
       }
     } else didMountRef.current = true;
-    console.log("logging props from inside effect", props);
 	}, [props.admin.posts]);
 
 	return (
