@@ -24,7 +24,7 @@ export const getPosts = (token) => {
 
 export const addPost = (post, token) => {
   return (dispatch) => {
-    API.addPost(token, (res) => {
+    API.addPost(post, token, (res) => {
       dispatch({
         type: "POST_ADDED",
         payload: res.data,
