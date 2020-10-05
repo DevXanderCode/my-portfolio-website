@@ -67,20 +67,26 @@ const AddPost = ({
 	...props
 }) => {
 	const didMountRef = React.useRef(false);
-
+console.log("logging props outside eefect", props);
 	React.useEffect(() => {
 		if (didMountRef.current) {
-      if(props.admin.post === undefined){
+      if(props.admin.posts === undefined){
         props.history.push("/admin/posts")
       }
 			else if (
 				props.match.params.view === 'add' && 
-				props.admin.posts.filter((p) => p.title === props.values.title).length > 0
+				props.admin.posts.filter((p) => p.title === values.title).length > 0
 			) {
-				const post = props.admin.posts.filter((p) => p.title === props.values.title)[0];
+        const post = props.admin.posts.filter((p) => p.title === values.title)[0];
+        console.log("logging post", post);
+        console.log("logging values", values);
 				props.history.push(`/admin/posts/edit/${post.id}`);
-			}
-		} else didMountRef.current = true;
+      }
+      else{
+        props.history.push("/admin/posts")
+      }
+    } else didMountRef.current = true;
+    console.log("logging props from inside effect", props);
 	}, [props.admin.posts]);
 
 	return (
