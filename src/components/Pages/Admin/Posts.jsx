@@ -29,7 +29,6 @@ const Posts = ({ auth, admin: { posts }, getPosts, classes, ...props }) => {
   return (
     <div style={{ padding: "0", margin: "0" }}>
       <h4>Testing Posts</h4>
-      {console.log("post", posts)}
       <TableView columns={columns} rows={posts} />
       <Fab
         component={RouterLink}

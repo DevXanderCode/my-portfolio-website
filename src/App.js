@@ -91,6 +91,7 @@ function App({ auth }) {
 			/>
 			<Route
 				path="/admin/posts/:view"
+				exact
 				render={(props) => {
 					return (
 						<div>

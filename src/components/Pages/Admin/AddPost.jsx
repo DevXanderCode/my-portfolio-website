@@ -34,13 +34,6 @@ const styles = (theme) => ({
 	}
 });
 
-const initialValues = {
-	title: '',
-	slug: '',
-	createdAt: '',
-	status: false,
-	content: ''
-};
 
 const statusItems = [ { label: 'Published', value: true }, { label: 'Unpulished', value: false } ];
 
@@ -63,7 +56,9 @@ const AddPost = ({
 	dirty,
 	setFieldValue,
 	values,
-	setFieldTouched,
+  setFieldTouched,
+  auth,
+  getSinglePost,
 	...props
 }) => {
   const didMountRef = React.useRef(false);
@@ -84,7 +79,13 @@ const AddPost = ({
         props.history.push("/admin/posts")
       }
     } else didMountRef.current = true;
-	}, [isSubmitting]);
+  }, [isSubmitting]);
+  
+  React.useEffect(() => {
+    if (props.match.params.view === "edit" && props.match.params.id){
+      getSinglePost(props.match.params.id, auth.token)
+    }
+  }, [])
 
 	return (
 		<div className={classes.container}>
@@ -136,14 +137,21 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
 	addPost: (posts, token) => {
 		dispatch(AdminActions.addPost(posts, token));
-	}
+  },
+  getSinglePost: (id, token) => {
+    dispatch(AdminActions.getSinglePost(id, token))
+  },
 });
 
 export default withRouter(
 	connect(mapStateToProps, mapDispatchToProps)(
 		withFormik({
-			mapPropsToValues: () => ({
-				...initialValues
+			mapPropsToValues: ({admin: {post}, ...props}) => ({
+        title: post.title ||  '',
+        slug: '',
+        createdAt: '',
+        status: false,
+        content: ''
 			}),
 			validationSchema: postSchema,
 			handleSubmit: (values, { setSubmitting, props: { addPost, auth: { token } } }) => {
