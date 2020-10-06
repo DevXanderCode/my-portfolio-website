@@ -84,7 +84,7 @@ const AddPost = ({
         props.history.push("/admin/posts")
       }
     } else didMountRef.current = true;
-	}, [props.admin.posts]);
+	}, [isSubmitting]);
 
 	return (
 		<div className={classes.container}>
