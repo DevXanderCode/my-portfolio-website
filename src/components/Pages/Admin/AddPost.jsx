@@ -9,6 +9,7 @@ import { FormikTextField } from 'formik-material-fields';
 import * as YUP from 'yup';
 import FormikSelect from '../../common/FormikSelect/index';
 import * as AdminActions from '../../../store/actions/adminActons';
+import { PostAddOutlined, TimerSharp } from '@material-ui/icons';
 
 const styles = (theme) => ({
 	container: {
@@ -34,7 +35,6 @@ const styles = (theme) => ({
 	}
 });
 
-
 const statusItems = [ { label: 'Published', value: true }, { label: 'Unpulished', value: false } ];
 
 const postSchema = YUP.object().shape({
@@ -43,91 +43,114 @@ const postSchema = YUP.object().shape({
 	content: YUP.string().required()
 });
 
-// const handleSubmit = (values, { setSubmitting, props }) => {
-//   e.preventDefault();
-//   console.log("Saving ...", props.addPost);
-// }
+class AddPost extends React.Component {
+	// const AddPost = ({
+	// 	classes,
+	// 	handleSubmit,
+	// 	isSubmitting,
+	// 	isValid,
+	//   dirty,
+	//   setValues,
+	// 	setFieldValue,
+	// 	values,
+	//   setFieldTouched,
+	//   auth,
+	//   getSinglePost,
+	// 	...props
+	// }) => {
+	//   const didMountRef = React.useRef(false);
+	//   const prevProps = React.useRef(props);
+	// 	React.useEffect(() => {
+	// 		if (didMountRef.current) {
+	//       if(props.admin.posts === undefined){
+	//         props.history.push("/admin/posts")
+	//       }
+	// 			else if (
+	// 				props.match.params.view === 'add' &&
+	// 				props.admin.posts.filter((p) => p.title === values.title).length > 0
+	// 			) {
+	//         const post = props.admin.posts.filter((p) => p.title === values.title)[0];
+	// 				props.history.push(`/admin/posts/edit/${post.id}`);
+	//       }
+	//       else{
+	//         props.history.push("/admin/posts")
+	//       }
+	//       console.log("logging oldProps", prevProps);
+	//       (props.admin.post.id !== prevProps.current.admin.post.id) &&  setValues(props.admin.post)
+	//     } else {
+	//       didMountRef.current = true;
+	//       prevProps.current = props;
+	//     }
+	//   }, [prevProps.current.admin.post]);
 
-const AddPost = ({
-	classes,
-	handleSubmit,
-	isSubmitting,
-	isValid,
-	dirty,
-	setFieldValue,
-	values,
-  setFieldTouched,
-  auth,
-  getSinglePost,
-	...props
-}) => {
-  const didMountRef = React.useRef(false);
-  
-	React.useEffect(() => {
-		if (didMountRef.current) {
-      if(props.admin.posts === undefined){
-        props.history.push("/admin/posts")
-      }
-			else if (
-				props.match.params.view === 'add' && 
-				props.admin.posts.filter((p) => p.title === values.title).length > 0
-			) {
-        const post = props.admin.posts.filter((p) => p.title === values.title)[0];
-				props.history.push(`/admin/posts/edit/${post.id}`);
-      }
-      else{
-        props.history.push("/admin/posts")
-      }
-    } else didMountRef.current = true;
-  }, [isSubmitting]);
-  
-  React.useEffect(() => {
-    if (props.match.params.view === "edit" && props.match.params.id){
-      getSinglePost(props.match.params.id, auth.token)
-    }
-  }, [])
+	//   React.useEffect(() => {
+	//     if (props.match.params.view === "edit" && props.match.params.id){
+	//       getSinglePost(props.match.params.id, auth.token)
+	//     }
+	//   }, [])
 
-	return (
-		<div className={classes.container}>
-			<h1>Add Posts</h1>
-			<Form className={classes.formControl} onSubmit={handleSubmit}>
-				<Paper className={classes.leftSide}>
-					<FormikTextField
-						name="title"
-						label="Title"
-						margin="normal"
-						onChange={(e) => {
-							return (
-								setFieldValue('slug', e.target.value.toLowerCase().replace(/ /g, '_')),
-								setFieldTouched('slug', true, false)
-							);
-						}}
-						fullWidth
-					/>
-					<FormikTextField
-						name="slug"
-						// label='Slug'
-						placeholder="Slug"
-						margin="normal"
-					/>
-					<FormikTextField name="content" label="content" margin="normal" fullWidth />
-				</Paper>
-				<Paper className={classes.rightSide}>
-					<FormikSelect label="Status" name="status" items={statusItems} required />
-					<Button
-						disabled={!isValid || !dirty || isSubmitting}
-						color="secondary"
-						variant="contained"
-						type="submit"
-					>
-						<SaveIcon />
-						{isSubmitting ? 'Saving' : 'Save'}
-					</Button>
-				</Paper>
-			</Form>
-		</div>
-	);
-};
+	componentDidUpdate(props, state){
+		if (this.props.match.params.view === "add"  && this.props.admin.posts.filter(p =>p.title === this.props.values.title).length > 0){
+			const post = this.props.admin.posts.filter(p => p.title === this.props.values.title)[0];
+			props.history.push(`/admin/posts/edit/${post.id}` + post.dispatch);
+		}
+
+		if(this.props.admin.post.id !== props.admin.post.id){
+			// when redux state changes post in the admin reducer
+			this.props.setValues(this.props.admin.post);
+		}
+	}
+
+	componentDidMount(props, state) {
+		if (this.props.match.params.view === 'edit' && this.props.match.params.id) {
+			this.props.getSinglePost(this.props.match.params.id, this.props.auth.token);
+		}
+	}
+	render() {
+		const { classes, setFieldTouched, setFieldValue, isValid, dirty, isSubmitting, handleSubmit } = this.props;
+
+		return (
+			<div className={classes.container}>
+				<h1>Add Posts</h1>
+				<Form className={classes.formControl} onSubmit={handleSubmit}>
+					<Paper className={classes.leftSide}>
+						<FormikTextField
+							name="title"
+							label="Title"
+							margin="normal"
+							onChange={(e) => {
+								return (
+									setFieldValue('slug', e.target.value.toLowerCase().replace(/ /g, '_')),
+									setFieldTouched('slug', true, false)
+								);
+							}}
+							fullWidth
+						/>
+						<FormikTextField
+							name="slug"
+							// label='Slug'
+							placeholder="Slug"
+							margin="normal"
+						/>
+						<FormikTextField name="content" label="content" margin="normal" fullWidth />
+					</Paper>
+					<Paper className={classes.rightSide}>
+						<FormikSelect label="Status" name="status" items={statusItems} required />
+						<Button
+							disabled={!isValid || !dirty || isSubmitting}
+							color="secondary"
+							variant="contained"
+							type="submit"
+						>
+							<SaveIcon />
+							{isSubmitting ? 'Saving' : 'Save'}
+						</Button>
+					</Paper>
+				</Form>
+			</div>
+		);
+	}
+}
 
 const mapStateToProps = (state) => ({
 	auth: state.auth,
@@ -137,26 +160,33 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
 	addPost: (posts, token) => {
 		dispatch(AdminActions.addPost(posts, token));
-  },
-  getSinglePost: (id, token) => {
-    dispatch(AdminActions.getSinglePost(id, token))
-  },
+	},
+	updatePost: (post, token) => {
+		dispatch(AdminActions.updatePost(post, token));
+	},
+	getSinglePost: (id, token) => {
+		dispatch(AdminActions.getSinglePost(id, token));
+	}
 });
 
 export default withRouter(
 	connect(mapStateToProps, mapDispatchToProps)(
 		withFormik({
-			mapPropsToValues: ({admin: {post}, ...props}) => ({
-        title: post.title ||  '',
-        slug: '',
-        createdAt: '',
-        status: false,
-        content: ''
+			mapPropsToValues: ({ admin: { post }, ...props }) => ({
+				title: post.title || '',
+				slug: post.slug || '',
+				createdAt: post.createdAt || '',
+				status: post.status || false,
+				content: post.content || ''
 			}),
 			validationSchema: postSchema,
-			handleSubmit: (values, { setSubmitting, props: { addPost, auth: { token } } }) => {
+			handleSubmit: (values, { setSubmitting, props: { addPost, updatePost, auth: { token }, ...props } }) => {
 				console.log('saving', addPost);
-				addPost(values, token);
+				if ( props.match.params.view === "edit"){
+					updatePost(values, token);
+				} else{
+					addPost(values, token);
+				}
 			}
 		})(withStyles(styles)(AddPost))
 	)
