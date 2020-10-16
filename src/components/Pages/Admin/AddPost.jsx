@@ -44,60 +44,19 @@ const postSchema = YUP.object().shape({
 });
 
 class AddPost extends React.Component {
-	// const AddPost = ({
-	// 	classes,
-	// 	handleSubmit,
-	// 	isSubmitting,
-	// 	isValid,
-	//   dirty,
-	//   setValues,
-	// 	setFieldValue,
-	// 	values,
-	//   setFieldTouched,
-	//   auth,
-	//   getSinglePost,
-	// 	...props
-	// }) => {
-	//   const didMountRef = React.useRef(false);
-	//   const prevProps = React.useRef(props);
-	// 	React.useEffect(() => {
-	// 		if (didMountRef.current) {
-	//       if(props.admin.posts === undefined){
-	//         props.history.push("/admin/posts")
-	//       }
-	// 			else if (
-	// 				props.match.params.view === 'add' &&
-	// 				props.admin.posts.filter((p) => p.title === values.title).length > 0
-	// 			) {
-	//         const post = props.admin.posts.filter((p) => p.title === values.title)[0];
-	// 				props.history.push(`/admin/posts/edit/${post.id}`);
-	//       }
-	//       else{
-	//         props.history.push("/admin/posts")
-	//       }
-	//       console.log("logging oldProps", prevProps);
-	//       (props.admin.post.id !== prevProps.current.admin.post.id) &&  setValues(props.admin.post)
-	//     } else {
-	//       didMountRef.current = true;
-	//       prevProps.current = props;
-	//     }
-	//   }, [prevProps.current.admin.post]);
 
-	//   React.useEffect(() => {
-	//     if (props.match.params.view === "edit" && props.match.params.id){
-	//       getSinglePost(props.match.params.id, auth.token)
-	//     }
-	//   }, [])
-
-	componentDidUpdate(props, state){
-		if (this.props.match.params.view === "add"  && this.props.admin.posts.filter(p =>p.title === this.props.values.title).length > 0){
-			const post = this.props.admin.posts.filter(p => p.title === this.props.values.title)[0];
+	componentDidUpdate(props, state) {
+		if (
+			this.props.match.params.view === 'add' &&
+			this.props.admin.posts.filter((p) => p.title === this.props.values.title).length > 0
+		) {
+			const post = this.props.admin.posts.filter((p) => p.title === this.props.values.title)[0];
 			props.history.push(`/admin/posts/edit/${post.id}` + post.dispatch);
-		} else if(this.props.isSubmitting) {
-			props.history.push("/admin/posts");
+		} else if (this.props.isSubmitting) {
+			props.history.push('/admin/posts');
 		}
 
-		if(this.props.admin.post.id !== props.admin.post.id){
+		if (this.props.admin.post.id !== props.admin.post.id) {
 			// when redux state changes post in the admin reducer
 			this.props.setValues(this.props.admin.post);
 		}
@@ -138,15 +97,17 @@ class AddPost extends React.Component {
 					</Paper>
 					<Paper className={classes.rightSide}>
 						<FormikSelect label="Status" name="status" items={statusItems} required />
-						<Button
-							disabled={!isValid || !dirty || isSubmitting}
-							color="secondary"
-							variant="contained"
-							type="submit"
-						>
-							<SaveIcon />
-							{isSubmitting ? 'Saving' : 'Save'}
-						</Button>
+						<div className={classes.save}>
+							<Button
+								disabled={!isValid || !dirty || isSubmitting}
+								color="secondary"
+								variant="contained"
+								type="submit"
+							>
+								<SaveIcon />
+								{isSubmitting ? 'Saving' : 'Save'}
+							</Button>
+						</div>
 					</Paper>
 				</Form>
 			</div>
@@ -184,13 +145,13 @@ export default withRouter(
 			validationSchema: postSchema,
 			handleSubmit: (values, { setSubmitting, props: { addPost, updatePost, auth: { token }, ...props } }) => {
 				console.log('saving', addPost);
-				if ( props.match.params.view === "edit"){
+				if (props.match.params.view === 'edit') {
 					const post = {
 						...values,
 						id: props.match.params.id
 					};
 					updatePost(post, token);
-				} else{
+				} else {
 					addPost(values, token);
 				}
 			}
