@@ -9,7 +9,7 @@ import { FormikTextField } from 'formik-material-fields';
 import * as YUP from 'yup';
 import FormikSelect from '../../common/FormikSelect/index';
 import * as AdminActions from '../../../store/actions/adminActons';
-import  ImageIcon  from '@material-ui/icons/Image';
+import ImageIcon from '@material-ui/icons/Image';
 
 /* global $ */
 
@@ -49,7 +49,6 @@ const postSchema = YUP.object().shape({
 });
 
 class AddPost extends React.Component {
-
 	componentDidUpdate(props, state) {
 		if (
 			this.props.match.params.view === 'add' &&
@@ -72,6 +71,13 @@ class AddPost extends React.Component {
 			this.props.getSinglePost(this.props.match.params.id, this.props.auth.token);
 		}
 	}
+
+	uploadImage = (e) => {
+		const data = new FormData();
+		data.append('file', e.target.files[0], new Date().getTime().toString() + e.target.files[0].name);
+
+		this.props.uploadImage(data, this.props.auth.token, this.props.admin.post.id, this.props.auth.user.userId);
+	};
 	render() {
 		const { classes, setFieldTouched, setFieldValue, isValid, dirty, isSubmitting, handleSubmit } = this.props;
 
@@ -114,10 +120,21 @@ class AddPost extends React.Component {
 							</Button>
 						</div>
 						<div>
-							<Button variant="contained" color="primary" onClick={e => {
-								$(".myFile").trigger("click");
-							}}><ImageIcon /> Upload Post Image</Button>
-							<input type="file" style={{display: "none"}} className="myFile" />
+							<Button
+								variant="contained"
+								color="primary"
+								onClick={(e) => {
+									$('.myFile').trigger('click');
+								}}
+							>
+								<ImageIcon /> Upload Post Image
+							</Button>
+							<input
+								type="file"
+								style={{ display: 'none' }}
+								className="myFile"
+								onChange={this.uploadImage}
+							/>
 						</div>
 					</Paper>
 				</Form>
@@ -140,6 +157,9 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 	getSinglePost: (id, token) => {
 		dispatch(AdminActions.getSinglePost(id, token));
+	},
+	uploadImage: (data, token, postId, userId) => {
+		dispatch(AdminActions.uploadImage(data, token, postId, userId));
 	}
 });
 

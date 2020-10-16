@@ -54,3 +54,14 @@ export const updatePost = (post, token) => {
 		});
 	};
 };
+
+export const uploadImage = (data, token, postId, userId) => {
+	return (dispatch) => {
+		API.uploadImage(data, token, postId, userId, (res) => {
+			dispatch({
+				type: 'UPLOADED_IMAGE',
+				payload: res.data
+			});
+		});
+	};
+};
