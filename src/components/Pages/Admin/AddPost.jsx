@@ -11,6 +11,8 @@ import FormikSelect from '../../common/FormikSelect/index';
 import * as AdminActions from '../../../store/actions/adminActons';
 import  ImageIcon  from '@material-ui/icons/Image';
 
+/* global $ */
+
 const styles = (theme) => ({
 	container: {
 		margin: theme.spacing(1)
@@ -112,7 +114,10 @@ class AddPost extends React.Component {
 							</Button>
 						</div>
 						<div>
-							<Button variant="contained" color="primary" onClick={e => {}}><ImageIcon /> Upload Post Image</Button>
+							<Button variant="contained" color="primary" onClick={e => {
+								$(".myFile").trigger("click");
+							}}><ImageIcon /> Upload Post Image</Button>
+							<input type="file" style={{display: "none"}} className="myFile" />
 						</div>
 					</Paper>
 				</Form>
