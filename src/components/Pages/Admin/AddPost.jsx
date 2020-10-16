@@ -9,11 +9,14 @@ import { FormikTextField } from 'formik-material-fields';
 import * as YUP from 'yup';
 import FormikSelect from '../../common/FormikSelect/index';
 import * as AdminActions from '../../../store/actions/adminActons';
-import { PostAddOutlined, TimerSharp } from '@material-ui/icons';
+import  ImageIcon  from '@material-ui/icons/Image';
 
 const styles = (theme) => ({
 	container: {
 		margin: theme.spacing(1)
+	},
+	save: {
+		marginBottom: theme.spacing(2)
 	},
 	formControl: {
 		// margin: theme.spacing(1),
@@ -107,6 +110,9 @@ class AddPost extends React.Component {
 								<SaveIcon />
 								{isSubmitting ? 'Saving' : 'Save'}
 							</Button>
+						</div>
+						<div>
+							<Button variant="contained" color="primary" onClick={e => {}}><ImageIcon /> Upload Post Image</Button>
 						</div>
 					</Paper>
 				</Form>
