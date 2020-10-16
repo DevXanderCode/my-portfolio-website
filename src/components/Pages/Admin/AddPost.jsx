@@ -93,6 +93,8 @@ class AddPost extends React.Component {
 		if (this.props.match.params.view === "add"  && this.props.admin.posts.filter(p =>p.title === this.props.values.title).length > 0){
 			const post = this.props.admin.posts.filter(p => p.title === this.props.values.title)[0];
 			props.history.push(`/admin/posts/edit/${post.id}` + post.dispatch);
+		} else if(this.props.isSubmitting) {
+			props.history.push("/admin/posts");
 		}
 
 		if(this.props.admin.post.id !== props.admin.post.id){
@@ -183,7 +185,11 @@ export default withRouter(
 			handleSubmit: (values, { setSubmitting, props: { addPost, updatePost, auth: { token }, ...props } }) => {
 				console.log('saving', addPost);
 				if ( props.match.params.view === "edit"){
-					updatePost(values, token);
+					const post = {
+						...values,
+						id: props.match.params.id
+					};
+					updatePost(post, token);
 				} else{
 					addPost(values, token);
 				}
