@@ -11,9 +11,8 @@ import FormikSelect from '../../common/FormikSelect/index';
 import * as AdminActions from '../../../store/actions/adminActons';
 import ImageIcon from '@material-ui/icons/Image';
 import API from '../../../utils/api';
-import ReactQuill from "react-quill";
-import 'react-quill/dist/quill.snow.css'; 
-
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 /* global $ */
 
@@ -25,7 +24,7 @@ const styles = (theme) => ({
 		marginBottom: theme.spacing(2)
 	},
 	postImage: {
-		width: "100%"
+		width: '100%'
 	},
 	formControl: {
 		// margin: theme.spacing(1),
@@ -44,6 +43,10 @@ const styles = (theme) => ({
 		padding: theme.spacing(1),
 		flex: 1,
 		height: '100%'
+	},
+	richEditor: {
+		marginLeft: theme.spacing(-3),
+		marginRight: theme.spacing(-3),
 	}
 });
 
@@ -85,6 +88,35 @@ class AddPost extends React.Component {
 
 		this.props.uploadImage(data, this.props.auth.token, this.props.admin.post.id, this.props.auth.user.userId);
 	};
+
+	modules = {
+		toolbar: [
+			[ 'bold', 'italic', 'underline', 'strike' ],
+			[ { header: [ 1, 2, 3, 4, 5, 6, false ] } ],
+			[ { list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' } ],
+			[ { size: [ 'small', 'medium', 'large', 'huge' ] } ],
+			[ { "color": []}, { "background": []}],
+			["image"],
+			[ "clean"]
+		]
+	};
+
+	format = [
+		'header',
+		'bold',
+		'italics',
+		'underline',
+		'strike',
+		'blockquote',
+		'script',
+		'list',
+		'bullet',
+		'indent',
+		'link',
+		'image',
+		'color',
+		'code-block'
+	];
 	render() {
 		const { classes, setFieldTouched, setFieldValue, isValid, dirty, isSubmitting, handleSubmit } = this.props;
 
@@ -112,13 +144,14 @@ class AddPost extends React.Component {
 							margin="normal"
 						/>
 
-							<ReactQuill 
-								value={this.props.values.content}
-								placeholder="write some cool stuff"
-								onChange={val => this.props.setFieldValue("content", val)}
-							/>
-
-						<FormikTextField name="content" label="content" margin="normal" fullWidth />
+						<ReactQuill
+							className={classes.richEditor}
+							value={this.props.values.content}
+							placeholder="write some cool stuff"
+							modules={this.modules}
+							formats={this.formats}
+							onChange={(val) => this.props.setFieldValue('content', val)}
+						/>
 					</Paper>
 					<Paper className={classes.rightSide}>
 						<FormikSelect label="Status" name="status" items={statusItems} required />
@@ -133,15 +166,13 @@ class AddPost extends React.Component {
 								{isSubmitting ? 'Saving' : 'Save'}
 							</Button>
 						</div>
-						{this.props.admin.post.PostImage && (
-							this.props.admin.post.PostImage.length > 0 ? (
-
+						{this.props.admin.post.PostImage &&
+							(this.props.admin.post.PostImage.length > 0 ? (
 								<img
 									src={API.makeFileUrl(this.props.admin.post.PostImage[0].url, this.props.auth.token)}
 									className={classes.postImage}
 								/>
-							) : null
-						)}
+							) : null)}
 						<div>
 							<Button
 								variant="contained"
