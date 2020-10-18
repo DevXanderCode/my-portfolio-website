@@ -10,6 +10,10 @@ import * as YUP from 'yup';
 import FormikSelect from '../../common/FormikSelect/index';
 import * as AdminActions from '../../../store/actions/adminActons';
 import ImageIcon from '@material-ui/icons/Image';
+import API from '../../../utils/api';
+import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css'; 
+
 
 /* global $ */
 
@@ -19,6 +23,9 @@ const styles = (theme) => ({
 	},
 	save: {
 		marginBottom: theme.spacing(2)
+	},
+	postImage: {
+		width: "100%"
 	},
 	formControl: {
 		// margin: theme.spacing(1),
@@ -104,6 +111,13 @@ class AddPost extends React.Component {
 							placeholder="Slug"
 							margin="normal"
 						/>
+
+							<ReactQuill 
+								value={this.props.values.content}
+								placeholder="write some cool stuff"
+								onChange={val => this.props.setFieldValue("content", val)}
+							/>
+
 						<FormikTextField name="content" label="content" margin="normal" fullWidth />
 					</Paper>
 					<Paper className={classes.rightSide}>
@@ -119,6 +133,15 @@ class AddPost extends React.Component {
 								{isSubmitting ? 'Saving' : 'Save'}
 							</Button>
 						</div>
+						{this.props.admin.post.PostImage && (
+							this.props.admin.post.PostImage.length > 0 ? (
+
+								<img
+									src={API.makeFileUrl(this.props.admin.post.PostImage[0].url, this.props.auth.token)}
+									className={classes.postImage}
+								/>
+							) : null
+						)}
 						<div>
 							<Button
 								variant="contained"
