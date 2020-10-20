@@ -10,7 +10,7 @@ const SinglePortfolio = ({ title, subtitle, image="img/portfolio/06-thumbnail.jp
                         <i className="fas fa-plus fa-3x"></i>
                     </div>
                 </div>
-                <img className="img-fluid" src={image} alt="" />
+                <img className="img-fluid w-100" src={image} alt="" />
             </Link>
             <div className="portfolio-caption">
                 <h4>{title}</h4>
