@@ -119,6 +119,7 @@ function App({ auth }) {
 			/>
 			<Route
 				path="/blog/:slug"
+				exact
 				render={(props) => (
 					<PageWrapper>
 						<Single {...props} />
@@ -127,6 +128,7 @@ function App({ auth }) {
 			/>
 			<Route
 				path="/blog"
+				exact
 				render={(props) => (
 					<PageWrapper>
 						<Blog {...props} />

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link as RouterLink } from 'react-router-dom';
-import API from "../../utils/api";
+import API from '../../utils/api';
 import * as SiteActions from '../../store/actions/siteActions';
 import Header from '../common/Header';
 import SinglePortfolio from '../common/SinglePortfolio';
@@ -23,14 +23,22 @@ const Blog = ({ getPosts, site: { posts }, ...props }) => {
 						</div>
 					</div> */}
 					<div className="row">
-                        {
-                            console.log("logging posts: ", posts)
-                        }
 						{posts && posts.length > 0 ? (
 							posts.map(({ title, slug, id, content, PostImage }, idx) => {
-                                const imageThumbnail = PostImage && PostImage.length > 0 ? API.makeFileUrl(PostImage[0].thubnail, null): null;
-								return (<SinglePortfolio key={id} title={title} subtitle={slug} image={imageThumbnail} />)
-                            })
+								const imageThumbnail =
+									PostImage && PostImage.length > 0
+										? API.makeFileUrl(PostImage[0].thubnail, null)
+										: null;
+								return (
+									<SinglePortfolio
+										key={id}
+										title={title}
+										subtitle={slug}
+										image={imageThumbnail}
+										modalLink={`/blog/${slug}`}
+									/>
+								);
+							})
 						) : null}
 					</div>
 				</div>
