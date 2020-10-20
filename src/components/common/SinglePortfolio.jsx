@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const SinglePortfolio = ({ title, subtitle, image="img/portfolio/06-thumbnail.jpg" }) => {
+const SinglePortfolio = ({ title, subtitle, image="img/portfolio/06-thumbnail.jpg", modalLink="/portfolioModal1" }) => {
     return(
         <div className="col-md-4 col-sm-6 portfolio-item">
-            <Link className="portfolio-link" data-toggle="modal" to="/portfolioModal1">
+            <Link className="portfolio-link" data-toggle="modal" to={modalLink}>
                 <div className="portfolio-hover">
                     <div className="portfolio-hover-content">
                         <i className="fas fa-plus fa-3x"></i>
