@@ -25,13 +25,18 @@ const API = {
 			success(res);
 		});
 	},
+	getPostCount: (success) => {
+		axios.get(`${host}/api/Post/count`).then((res) => {
+			success(res);
+		});
+	},
 	getSitePosts: (skip, success) => {
 		axios
 			.get(`${host}/api/Posts`, {
 				params: {
 					filter: {
 						skip,
-						limit: 10,
+						limit: 6,
 						include: 'PostImage'
 					}
 				}
