@@ -1,10 +1,12 @@
 import React from "react";
 import { withRouter, Link } from "react-router-dom";
+import { connect } from "react-redux";
+import * as SiteActions from "../../store/actions/siteActions";
 
-const SinglePortfolio = ({ title, subtitle, image="img/portfolio/06-thumbnail.jpg", modalLink="/portfolioModal1" }) => {
+const SinglePortfolio = ({ title, subtitle, image, modalLink="/portfolioModal1", setPostData, ...props }) => {
     return(
         <div className="col-md-4 col-sm-6 portfolio-item">
-            <Link className="portfolio-link"  to={`${modalLink}`}>
+            <Link className="portfolio-link"  to={`${modalLink}`} onClick={e => setPostData({title, subtitle, image})}>
                 <div className="portfolio-hover">
                     <div className="portfolio-hover-content">
                         <i className="fas fa-plus fa-3x"></i>
@@ -20,4 +22,15 @@ const SinglePortfolio = ({ title, subtitle, image="img/portfolio/06-thumbnail.jp
     );
 }
 
-export default withRouter(SinglePortfolio);
+const mapStateToProps = (state) => ({});
+
+const mapDispatchToProps = (dispatch) => ({
+    setPostData: (post) => {
+        dispatch(SiteActions.setPostData(post));
+    }
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withRouter(SinglePortfolio));

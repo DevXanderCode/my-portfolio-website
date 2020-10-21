@@ -22,3 +22,12 @@ export const getPostCount = () => {
 		});
 	};
 };
+
+export const setPostData = (post) => {
+	return (dispatch) => {
+		dispatch({
+			type: 'SET_DEFAULT_POST_DATA',
+			payload: post
+		});
+	};
+};
