@@ -26,7 +26,7 @@ const API = {
 		});
 	},
 	getPostCount: (success) => {
-		axios.get(`${host}/api/Post/count`).then((res) => {
+		axios.get(`${host}/api/Posts/count`).then((res) => {
 			success(res);
 		});
 	},

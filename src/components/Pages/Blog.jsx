@@ -7,7 +7,7 @@ import Header from '../common/Header';
 import SinglePortfolio from '../common/SinglePortfolio';
 import image from '../assets/images/building.jpg';
 
-const Blog = ({ getPosts, getPostCount,  site: { posts }, ...props }) => {
+const Blog = ({ getPosts, getPostCount, site: { posts, postCount }, ...props }) => {
 	React.useEffect(() => {
 		getPosts(0);
 		getPostCount();
@@ -39,9 +39,11 @@ const Blog = ({ getPosts, getPostCount,  site: { posts }, ...props }) => {
 					<div className="row">
 						<div className="col-md-12">
 							<div className="text-center">
-								<button className="btn btn-success" onClick={e => getPosts(posts.length)}>
-									Load More
-								</button>
+								{postCount > posts.length && (
+									<button className="btn btn-success" onClick={(e) => getPosts(posts.length)}>
+										Load More
+									</button>
+								)}
 							</div>
 						</div>
 					</div>
@@ -60,7 +62,7 @@ const mapDispatchToProps = (dispatch) => ({
 		dispatch(SiteActions.getPosts(skip));
 	},
 	getPostCount: () => {
-		dispatch(SiteActions.getPostCount())
+		dispatch(SiteActions.getPostCount());
 	}
 });
 
