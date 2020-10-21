@@ -30,6 +30,7 @@ const Blog = ({ getPosts, getPostCount, site: { posts, postCount }, ...props }) 
 										title={title}
 										subtitle={slug}
 										image={imageThumbnail}
+										postImage={PostImage}
 										modalLink={`/blog/${slug}`}
 									/>
 								);
