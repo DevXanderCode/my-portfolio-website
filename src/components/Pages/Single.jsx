@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 import API from "../../utils/api";
 import Header from "../common/Header";
 
-const Single = ({ site: {post: {postImage}},...props}) => {
+const Single = ({ site: {post: {title, subtitle, postImage}},...props}) => {
     return (
         <div>
-            <Header image={API.makeFileUrl(postImage[0].url, null)} showButton={false} />
+            <Header subtitle={title} image={postImage.length > 0 && API.makeFileUrl(postImage[0].url, null)} showButton={false} />
             <h6> Hello from the single component</h6>
         </div>
     )
