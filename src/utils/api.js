@@ -37,7 +37,13 @@ const API = {
 					filter: {
 						skip,
 						limit: 6,
-						include: 'PostImage'
+						include: 'PostImage',
+						fields: {
+							id: true,
+							slug: true,
+							title: true,
+							content: false
+						}
 					}
 				}
 			})
