@@ -65,9 +65,9 @@ class AddPost extends React.Component {
 			this.props.admin.posts.filter((p) => p.title === this.props.values.title).length > 0
 		) {
 			const post = this.props.admin.posts.filter((p) => p.title === this.props.values.title)[0];
-			props.history.push(`/admin/posts/edit/${post.id}` + post.dispatch);
+			this.props.history.push(`/admin/posts/edit/${post.id}` + post.dispatch);
 		} else if (this.props.isSubmitting) {
-			props.history.push('/admin/posts');
+			this.props.history.push('/admin/posts');
 		}
 
 		if (this.props.admin.post.id !== props.admin.post.id) {

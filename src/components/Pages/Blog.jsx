@@ -16,12 +16,6 @@ const Blog = ({ getPosts, site: { posts }, ...props }) => {
 			<Header title="Blog" subtitle="Read all our story!" image={image} showButton={false} />
 			<section className="bg-light page-section" id="portfolio">
 				<div className="container">
-					{/* <div className="row">
-						<div className="col-lg-12 text-center">
-							<h2 className="section-heading text-uppercase">Portfolio</h2>
-							<h3 className="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-						</div>
-					</div> */}
 					<div className="row">
 						{posts && posts.length > 0 ? (
 							posts.map(({ title, slug, id, content, PostImage }, idx) => {

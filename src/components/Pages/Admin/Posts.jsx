@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, withRouter } from 'react-router-dom';
 // import { Link } from "@material-ui/core";
 import { connect } from 'react-redux';
 import Fab from '@material-ui/core/Fab';
@@ -58,4 +58,4 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Posts));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withRouter(Posts)));
