@@ -68,10 +68,10 @@ const loginSchema = YUP.object().shape({
 		.required('please enter your Password'),
 	confirmPassword: YUP.string()
 		.required('please you need to confirm your password')
-		.oneOf([ YUP.ref('password'), null ], 'Passwords must match')
+		.oneOf([ YUP.ref('password'), null ], "Password dont't  match")
 });
 
-const Signup = ({ handleChange, handleSubmit, handleBlur, touched, errors, values, login }) => {
+const Signup = ({ handleChange, handleSubmit, handleBlur, touched, errors, values, register }) => {
 	const [ fieldType, setFieldType ] = React.useState('password');
 	return (
 		<div className="login-page" style={{ ...loginPageStyle }}>
@@ -87,7 +87,7 @@ const Signup = ({ handleChange, handleSubmit, handleBlur, touched, errors, value
 							<Form
 								onSubmit={(e) => {
 									e.preventDefault();
-									login(values.email, values.password);
+									register(values.name, values.email, values.password);
 								}}
 							>
 								<div style={{ display: 'flex' }}>
@@ -195,9 +195,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		login: (email, password) => {
-			dispatch(AuthActions.login(email, password));
-			console.log('logging in user:', email);
+		register: (name, email, password) => {
+			dispatch(AuthActions.register(name, email, password));
+			console.log('register the user:', name, email);
 		}
 	};
 };

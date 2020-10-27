@@ -1,6 +1,6 @@
 import React from 'react';
 import PageWrapper from './components/PageWraper';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import Team from './components/common/Team';
 import { connect } from 'react-redux';
 // pages
@@ -177,11 +177,20 @@ function App({ auth }) {
 			/>
 			<Route
 				path="/signup"
-				render={(props) => (
-					<LoginWrapper>
-						<Signup {...props} />
-					</LoginWrapper>
-				)}
+				exact
+				render={(props) => {
+					return (
+						<div>
+							{auth.token ? (
+								<Redirect to="/" />
+							) : (
+								<LoginWrapper>
+									<Signup {...props} />
+								</LoginWrapper>
+							)}
+						</div>
+					);
+				}}
 			/>
 		</Router>
 	);
