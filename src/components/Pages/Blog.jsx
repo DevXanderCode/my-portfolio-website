@@ -8,10 +8,17 @@ import SinglePortfolio from '../common/SinglePortfolio';
 import image from '../assets/images/building.jpg';
 
 const Blog = ({ getPosts, getPostCount, site: { posts, postCount }, ...props }) => {
-	React.useEffect(() => {
-		getPosts(0);
-		getPostCount();
-	}, []);
+	try {
+		React.useEffect(() => {
+			getPosts(0);
+			getPostCount();
+			console.log('trying to get posts');
+		}, []);
+	} catch (error) {
+		console.log('got this error when i tried to get posts', error);
+		throw error;
+	}
+
 	return (
 		<div>
 			<Header title="Blog" subtitle="Read all our story!" image={image} showButton={false} />
@@ -40,7 +47,8 @@ const Blog = ({ getPosts, getPostCount, site: { posts, postCount }, ...props }) 
 					<div className="row">
 						<div className="col-md-12">
 							<div className="text-center">
-								{postCount > posts.length && (
+								{posts &&
+								postCount > posts.length && (
 									<button className="btn btn-success" onClick={(e) => getPosts(posts.length)}>
 										Load More
 									</button>
@@ -50,7 +58,6 @@ const Blog = ({ getPosts, getPostCount, site: { posts, postCount }, ...props }) 
 					</div>
 				</div>
 			</section>
-			<h4>Hi from the Blog component</h4>
 		</div>
 	);
 };

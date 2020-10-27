@@ -75,6 +75,22 @@ const API = {
 			.then((res) => {
 				success(res);
 			});
+	},
+	getPostBySlug: (slug, token, success) => {
+		axios
+			.get(`${host}/api/Posts?access_token=${token}`, {
+				params: {
+					filter: {
+						where: {
+							slug
+						},
+						include: 'PostImage'
+					}
+				}
+			})
+			.then((res) => {
+				success(res);
+			});
 	}
 };
 
