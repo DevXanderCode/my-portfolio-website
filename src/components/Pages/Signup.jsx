@@ -9,6 +9,9 @@ import VisibilityOffSharpIcon from '@material-ui/icons/VisibilityOffSharp';
 import PersonIcon from '@material-ui/icons/Person';
 import * as AuthActions from '../../store/actions/authActions';
 import FormikField from '../common/FormikField';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import { makeStyles } from '@material-ui/core/styles';
 
 const loginPageStyle = {
 	minWidth: '40%',
@@ -72,8 +75,33 @@ const loginSchema = YUP.object().shape({
 		.oneOf([ YUP.ref('password'), null ], "Password dont't  match")
 });
 
-const Signup = ({ handleChange, handleSubmit, handleBlur, touched, errors, values, register }) => {
+const Alert = (props) => {
+	return <MuiAlert elevation={6} variant="filled" {...props} />;
+};
+
+const useStyles = makeStyles((theme) => ({
+	root: {
+		width: '100%',
+		'& > * + *': {
+			marginTop: theme.spacing(2)
+		}
+	}
+}));
+
+const Signup = ({ handleChange, handleSubmit, handleBlur, touched, errors, values, register, auth }) => {
 	const [ fieldType, setFieldType ] = React.useState('password');
+	const classes = useStyles();
+	// const [ open, setOpen ] = React.useState(false);
+
+	// let open = false;
+
+	// const handleClose = (event, reason) => {
+	// 	if (reason === 'clickaway') {
+	// 		return;
+	// 	}
+
+	// 	setOpen(false);
+	// };
 	return (
 		<div className="login-page" style={{ ...loginPageStyle }}>
 			<div className="container">
@@ -174,7 +202,6 @@ const Signup = ({ handleChange, handleSubmit, handleBlur, touched, errors, value
 									<pre>
 										Already have an Account?
 										<Link to={'/admin'} style={{ color: 'green' }}>
-											{' '}
 											Login
 										</Link>
 									</pre>
@@ -184,6 +211,14 @@ const Signup = ({ handleChange, handleSubmit, handleBlur, touched, errors, value
 					</Formik>
 				</div>
 			</div>
+
+			{auth.error.response && (
+				<div className={classes.root}>
+					<Snackbar open={true} autoHideDuration={6000}>
+						<Alert severity="error">{auth.error.response && auth.error.response.data.error.message}</Alert>
+					</Snackbar>
+				</div>
+			)}
 		</div>
 	);
 };

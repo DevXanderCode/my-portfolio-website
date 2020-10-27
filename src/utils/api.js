@@ -17,6 +17,7 @@ const API = {
 				success(res);
 			})
 			.catch((err) => {
+				// console.log('logging error: ', err, err.name);
 				success(err);
 			});
 	},

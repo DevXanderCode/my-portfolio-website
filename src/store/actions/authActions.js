@@ -15,9 +15,10 @@ export const login = (email, password) => {
 export const register = (name, email, password) => {
 	return (dispatch) => {
 		API.register(name, email, password, (res) => {
+			console.log('logging res', res);
 			res.status === 200
 				? dispatch(login(email, password))
-				: res.error.message && dispatch({ type: 'SHOW_ERROR', payload: res.error.message });
+				: res && dispatch({ type: 'SHOW_ERROR', payload: res });
 		});
 	};
 };
