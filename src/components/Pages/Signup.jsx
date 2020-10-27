@@ -61,8 +61,12 @@ const initialValues = {
 };
 
 const loginSchema = YUP.object().shape({
-	email: YUP.string().email('please enter a valid email').required('Please you need to login with an email address'),
-	password: YUP.string().required('please enter your Password')
+	name: YUP.string().required('please input your name'),
+	email: YUP.string().email('please enter a valid email').required('Please you need to signup with an email address'),
+	password: YUP.string()
+		.min(8, 'your password need to be at least 8 charaters long')
+		.required('please enter your Password'),
+	confirmPassword: YUP.string().required('please you need to confirm your password')
 });
 
 const Signup = ({ handleChange, handleSubmit, handleBlur, touched, errors, values, login }) => {
@@ -70,7 +74,7 @@ const Signup = ({ handleChange, handleSubmit, handleBlur, touched, errors, value
 	return (
 		<div className="login-page" style={{ ...loginPageStyle }}>
 			<div className="container">
-				<div className="login-form" style={{ padding: '1rem' }}>
+				<div className="login-form" style={{ padding: '0 1rem' }}>
 					<div style={{ ...formTitle }}>
 						<h1 style={{ color: 'black' }}>Welcome</h1>
 						<h1 style={{ ...initialsStyle }}>A</h1>
@@ -163,7 +167,7 @@ const Signup = ({ handleChange, handleSubmit, handleBlur, touched, errors, value
 								>
 									Signup
 								</button>
-								<div style={{ marginTop: '10%' }}>
+								<div style={{ marginTop: '10%', marginBottom: '0' }}>
 									<pre>
 										Already have an Account?
 										<a href="#" style={{ color: 'green' }}>
