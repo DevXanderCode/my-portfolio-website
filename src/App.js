@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Team from './components/common/Team';
 import { connect } from 'react-redux';
 // pages
-import { Home, About, ServicesPage, PortfolioPage, Contact, Login, Blog, Single } from './components/Pages';
+import { Home, About, ServicesPage, PortfolioPage, Contact, Login, Blog, Single, Signup } from './components/Pages';
 
 import AdminWrapper from './components/AdminWrapper';
 import LoginWrapper from './components/LoginWrapper';
@@ -173,6 +173,14 @@ function App({ auth }) {
 					<PageWrapper>
 						<Contact {...props} />
 					</PageWrapper>
+				)}
+			/>
+			<Route
+				path="/signup"
+				render={(props) => (
+					<LoginWrapper>
+						<Signup {...props} />
+					</LoginWrapper>
 				)}
 			/>
 		</Router>
