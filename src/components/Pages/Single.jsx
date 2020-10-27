@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import Style from 'style-it';
 import API from '../../utils/api';
 import Header from '../common/Header';
 import * as SiteActions from '../../store/actions/siteActions';
 
-const Single = ({ getSinglePost, site, auth: { token }, ...props }) => {
+const Single = ({ getSinglePost, site: { title, PostImage, content }, auth: { token }, ...props }) => {
 	try {
 		React.useEffect(() => {
 			console.log('tyring to get the single post by slug');
@@ -15,19 +16,20 @@ const Single = ({ getSinglePost, site, auth: { token }, ...props }) => {
 		throw error;
 	}
 
-	const { title, PostImage, content } = site[0];
-
-	return (
+	return Style.it(
+		`.post-content img{
+        max-width: 100%;
+    }`,
 		<div>
 			<Header
 				subtitle={title}
 				image={PostImage.length > 0 && API.makeFileUrl(PostImage[0].url, null)}
 				showButton={false}
 			/>
-			<div className="container">
+			<div className="container mt-5">
 				<div className="row">
 					<div className="col-md-9">
-						<div dangerouselySetInnerHTML={{ __html: content }} />
+						<div className="post-content" dangerouslySetInnerHTML={{ __html: content }} />
 					</div>
 				</div>
 			</div>

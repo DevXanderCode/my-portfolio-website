@@ -78,7 +78,7 @@ const API = {
 	},
 	getPostBySlug: (slug, token, success) => {
 		axios
-			.get(`${host}/api/Posts?access_token=${token}`, {
+			.get(`${host}/api/Posts/findOne?access_token=${token}`, {
 				params: {
 					filter: {
 						where: {
