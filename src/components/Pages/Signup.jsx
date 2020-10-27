@@ -11,20 +11,20 @@ import FormikField from '../common/FormikField';
 
 const loginPageStyle = {
 	minWidth: '40%',
-	marginTop: '3%',
+	marginTop: '2%',
 	border: '1px groove rgba(122,122, 122, 0.4)',
 	// backgroundImage: "linear-gradient(180deg, #555,rgba(118,118,118, .8))",
 	boxShadow: '0px 0px 15px rgba(0,0,0,0.5)',
 	borderRadius: '5px',
 	backgroundColor: '#eee',
-	padding: '5% 5% 0'
+	padding: '2% 5% 0'
 };
 
 const formTitle = {
 	textAlign: 'center',
 	color: 'white',
 	width: '100%',
-	marginBottom: '2.4rem',
+	marginBottom: '1.4rem',
 	fontSize: '2rem'
 };
 
@@ -163,7 +163,7 @@ const Signup = ({ handleChange, handleSubmit, handleBlur, touched, errors, value
 								>
 									Signup
 								</button>
-								<div style={{ marginTop: '30%' }}>
+								<div style={{ marginTop: '10%' }}>
 									<pre>
 										Already have an Account?
 										<a href="#" style={{ color: 'green' }}>
