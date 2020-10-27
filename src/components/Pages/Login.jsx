@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as YUP from 'yup';
 import { Form, Formik } from 'formik';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffSharpIcon from '@material-ui/icons/VisibilityOffSharp';
@@ -68,7 +69,7 @@ const Login = ({ handleChange, handleSubmit, handleBlur, touched, errors, values
 		<div className="login-page" style={{ ...loginPageStyle }}>
 			<div className="container">
 				<div className="login-form" style={{ padding: '1rem' }}>
-					<div style={{ ...formTitle }}> 
+					<div style={{ ...formTitle }}>
 						<h1 style={{ color: 'black' }}>Welcome</h1>
 						<h1 style={{ ...initialsStyle }}>A</h1>
 					</div>
@@ -129,10 +130,10 @@ const Login = ({ handleChange, handleSubmit, handleBlur, touched, errors, values
 								<div style={{ marginTop: '30%' }}>
 									<pre>
 										Don't have an Account?
-										<a href="#" style={{ color: 'green' }}>
+										<Link to="/signup" style={{ color: 'green' }}>
 											{' '}
 											Signup
-										</a>
+										</Link>
 									</pre>
 								</div>
 							</Form>

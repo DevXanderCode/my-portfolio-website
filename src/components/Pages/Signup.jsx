@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as YUP from 'yup';
+import { Link } from 'react-router-dom';
 import { Form, Formik } from 'formik';
 import { connect } from 'react-redux';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
@@ -172,10 +173,10 @@ const Signup = ({ handleChange, handleSubmit, handleBlur, touched, errors, value
 								<div style={{ marginTop: '10%', marginBottom: '0' }}>
 									<pre>
 										Already have an Account?
-										<a href="#" style={{ color: 'green' }}>
+										<Link to={'/admin'} style={{ color: 'green' }}>
 											{' '}
 											Login
-										</a>
+										</Link>
 									</pre>
 								</div>
 							</Form>
