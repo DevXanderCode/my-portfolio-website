@@ -66,7 +66,9 @@ const loginSchema = YUP.object().shape({
 	password: YUP.string()
 		.min(8, 'your password need to be at least 8 charaters long')
 		.required('please enter your Password'),
-	confirmPassword: YUP.string().required('please you need to confirm your password')
+	confirmPassword: YUP.string()
+		.required('please you need to confirm your password')
+		.oneOf([ YUP.ref('password'), null ], 'Passwords must match')
 });
 
 const Signup = ({ handleChange, handleSubmit, handleBlur, touched, errors, values, login }) => {
