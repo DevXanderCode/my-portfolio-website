@@ -35,7 +35,18 @@ const CommentBuilder = ({ postComment, auth, site, values, ...props }) => {
 		<div className="col-md-6">
 			{/* <h4>hello comment builder section</h4> */}
 			<Formik initialValues={initialValues} validationSchema={commentSchema}>
-				{({ isValid, dirty, values, isSubmitting, handleBlur, errors, handleChange, touched, ...props }) => (
+				{({
+					isValid,
+					dirty,
+					values,
+					isSubmitting,
+					handleBlur,
+					errors,
+					handleChange,
+					touched,
+					setFieldValue,
+					...props
+				}) => (
 					<Form
 						onSubmit={(e) => {
 							e.preventDefault();
@@ -46,8 +57,10 @@ const CommentBuilder = ({ postComment, auth, site, values, ...props }) => {
 								content: values.content
 							};
 							postComment(comment, auth.token);
+							// setFieldValue('content', '');
 						}}
 					>
+						<h5>Add Comment</h5>
 						<Field
 							{...field[0]}
 							onChange={handleChange}
@@ -63,6 +76,7 @@ const CommentBuilder = ({ postComment, auth, site, values, ...props }) => {
 								...LoginButton
 							}}
 							disabled={!isValid || !dirty || isSubmitting}
+							// onClick={() => setFieldValue('content', '')}
 						>
 							Comment
 						</button>

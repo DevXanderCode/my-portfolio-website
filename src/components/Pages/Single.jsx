@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import Style from 'style-it';
 import { Link } from 'react-router-dom';
 import API from '../../utils/api';
@@ -38,9 +39,38 @@ const Single = ({ getSinglePost, site, auth: { token }, ...props }) => {
 						<div className="post-content" dangerouslySetInnerHTML={{ __html: content }} />
 					</div>
 				</div>
+
 				<div className="row">
 					<div className="col-md-12">
 						<h3>Comments</h3>
+						<div className="container ">
+							{site &&
+								site.post.Comments &&
+								site.post.Comments.length > 0 &&
+								site.post.Comments.map((comment, idx) => (
+									<div className="col-md-6 bg-white m-3" key={idx}>
+										{console.log(
+											'logging Date: ',
+											moment(comment.Profile.created_at).format('MMMM Do YYYY, h:mm:ss a')
+										)}
+										<div className="row">
+											<h4 className="col-md-6">{comment.Profile ? comment.Profile.name : ''}</h4>
+											<p className="col-md-6">
+												<b>
+													{comment.Profile ? (
+														moment(comment.Profile.created_at).format(
+															'MMMM Do YYYY, h:mm:ss a'
+														)
+													) : (
+														''
+													)}
+												</b>
+											</p>
+										</div>
+										<p>{comment.content}</p>
+									</div>
+								))}
+						</div>
 						{token ? (
 							<CommentBuilder />
 						) : (
@@ -49,18 +79,6 @@ const Single = ({ getSinglePost, site, auth: { token }, ...props }) => {
 							</p>
 						)}
 					</div>
-				</div>
-
-				<div className="row">
-					{site &&
-						site.post.Comments &&
-						site.post.Comments.length > 0 &&
-						site.post.Comments.map((comment, idx) => (
-							<div className="col-md-12" key={idx}>
-								<h4>{comment.Profile ? comment.Profile.name : ''}</h4>
-								<p>{comment.content}</p>
-							</div>
-						))}
 				</div>
 			</div>
 		</div>
