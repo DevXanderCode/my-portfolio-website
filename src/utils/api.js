@@ -109,7 +109,6 @@ const API = {
 							slug
 						},
 						include: [ 'PostImage', 'Comments' ]
-						// include: 'Comments'
 					}
 				}
 			})

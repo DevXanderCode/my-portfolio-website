@@ -8,6 +8,12 @@ export const login = (email, password) => {
 				type: 'LOGIN',
 				payload: { email, token: res.data.id, userId: res.data.userId }
 			});
+			API.getUser(res.data.userId, res.data.id, (res2) => {
+				dispatch({
+					type: 'AFTER_LOGIN',
+					payload: res2.data
+				});
+			});
 		});
 	};
 };
@@ -19,13 +25,6 @@ export const register = (name, email, password) => {
 			res.status === 200
 				? dispatch(login(email, password))
 				: res && dispatch({ type: 'SHOW_ERROR', payload: res });
-
-			API.getUser(res.data.userId, res.data.id, (res2) => {
-				dispatch({
-					type: 'AFTER_LOGIN',
-					payload: res2.data
-				});
-			});
 		});
 	};
 };
