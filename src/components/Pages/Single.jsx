@@ -31,6 +31,8 @@ const Single = ({ getSinglePost, site, auth: { token }, ...props }) => {
 			return `${Math.floor(diff / 60)} min`;
 		} else if (diff > 3600 && diff < 86400) {
 			return `${Math.floor(diff / 3600)} hours`;
+		} else if ((diff >= 86400 && diff < 604, 800)) {
+			return `${Math.floor(diff / 86400)} days`;
 		}
 	};
 
@@ -49,6 +51,13 @@ const Single = ({ getSinglePost, site, auth: { token }, ...props }) => {
 		.timeStamp{
 			display: flex;
 			justify-content: flex-end;
+			margin: auto;
+			text-align: center;
+		}
+		.nameInitial{
+			border-radius: 50%;
+			background-color: rgba(123, 231, 211, .6);
+			font-size: 1.3rem
 		}
 		`,
 		<div>
@@ -74,11 +83,16 @@ const Single = ({ getSinglePost, site, auth: { token }, ...props }) => {
 								site.post.Comments.map((comment, idx) => (
 									<div className="col-md-6 m-3 p-2 comment" key={idx}>
 										<div className="row">
-											<h4 className="col-md-6">{comment.Profile ? comment.Profile.name : ''}</h4>
-											<p className="col-md-6 timeStamp">
-												<AccessTimeIcon />
-												{comment.Profile ? dateFunc(comment.Profile.created_at) : ''}
-											</p>
+											<div className="col-md-1 nameInitial text-center ml-2 px-1 py-1 text-capitalize">
+												{comment.Profile ? comment.Profile.name[0] : ''}
+											</div>
+											<h4 className="col-md-6" style={{ margin: 'auto 0' }}>
+												{comment.Profile ? comment.Profile.name : ''}
+											</h4>
+											<div className="col-md-4 timeStamp">
+												<AccessTimeIcon className="mr-1" />
+												<p>{comment.Profile ? dateFunc(comment.Profile.created_at) : ''}</p>
+											</div>
 										</div>
 										<p>{comment.content}</p>
 									</div>
