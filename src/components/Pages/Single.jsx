@@ -7,6 +7,7 @@ import API from '../../utils/api';
 import Header from '../common/Header';
 import * as SiteActions from '../../store/actions/siteActions';
 import CommentBuilder from '../common/CommentBuilder';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 const Single = ({ getSinglePost, site, auth: { token }, ...props }) => {
 	try {
@@ -19,14 +20,37 @@ const Single = ({ getSinglePost, site, auth: { token }, ...props }) => {
 		throw error;
 	}
 
+	const dateFunc = (date) => {
+		let diff = moment().diff(moment().format(`${date}`), 's');
+
+		if (diff === 0 || diff < 60) {
+			return 'just now';
+		} else if (diff === 60) {
+			return '1 min';
+		} else if (diff > 60 && diff < 3600) {
+			return `${Math.floor(diff / 60)} min`;
+		} else if (diff > 3600 && diff < 86400) {
+			return `${Math.floor(diff / 3600)} hours`;
+		}
+	};
+
 	const { title, PostImage, content } = site;
 
 	// console.log('logging site', site);
 
 	return Style.it(
 		`.post-content img{
-        max-width: 100%;
-    }`,
+		max-width: 100%;
+		}
+		.comment{
+			box-shadow: 0px 5px 10px rgba(112,112,112,.5);
+			background-color: beige;
+		}
+		.timeStamp{
+			display: flex;
+			justify-content: flex-end;
+		}
+		`,
 		<div>
 			<Header
 				subtitle={title}
@@ -43,28 +67,17 @@ const Single = ({ getSinglePost, site, auth: { token }, ...props }) => {
 				<div className="row">
 					<div className="col-md-12">
 						<h3>Comments</h3>
-						<div className="container ">
+						<div className="container">
 							{site &&
 								site.post.Comments &&
 								site.post.Comments.length > 0 &&
 								site.post.Comments.map((comment, idx) => (
-									<div className="col-md-6 bg-white m-3" key={idx}>
-										{console.log(
-											'logging Date: ',
-											moment(comment.Profile.created_at).format('MMMM Do YYYY, h:mm:ss a')
-										)}
+									<div className="col-md-6 m-3 p-2 comment" key={idx}>
 										<div className="row">
 											<h4 className="col-md-6">{comment.Profile ? comment.Profile.name : ''}</h4>
-											<p className="col-md-6">
-												<b>
-													{comment.Profile ? (
-														moment(comment.Profile.created_at).format(
-															'MMMM Do YYYY, h:mm:ss a'
-														)
-													) : (
-														''
-													)}
-												</b>
+											<p className="col-md-6 timeStamp">
+												<AccessTimeIcon />
+												{comment.Profile ? dateFunc(comment.Profile.created_at) : ''}
 											</p>
 										</div>
 										<p>{comment.content}</p>
