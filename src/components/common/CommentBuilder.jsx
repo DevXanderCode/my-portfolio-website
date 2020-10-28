@@ -1,27 +1,74 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import * as Yup from 'yup';
-import FormikField from '../common/FormikField';
 import { Form, Formik } from 'formik';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import VisibilityOffSharpIcon from '@material-ui/icons/VisibilityOffSharp';
 import * as SiteActions from '../../store/actions/siteActions';
+import Field from './Field';
+
+const field = [
+	{
+		name: 'content',
+		elementName: 'textarea',
+		type: 'text',
+		placeholder: 'Your comment *'
+	}
+];
 
 const initialValues = {
-	email: '',
-	password: ''
+	content: ''
 };
 
-const loginSchema = Yup.object().shape({
-	email: Yup.string().email('please enter a valid email').required('Please you need to login with an email address'),
-	password: Yup.string().required('please enter your Password')
+const commentSchema = Yup.object().shape({
+	content: Yup.string().required("Please your comment can't be empty")
 });
 
-const CommentBuilder = () => {
+const LoginButton = {
+	width: '100%',
+	borderRadius: '100px',
+	padding: '2%',
+	backgroundImage: 'linear-gradient(60deg, rgb(40,208,245,.8),rgba(127,41,190, .8))',
+	marginTop: '5%'
+};
+
+const CommentBuilder = ({ postComment, auth, site, values, ...props }) => {
 	return (
-		<div>
-			<h4>hello comment builder section</h4>
+		<div className="col-md-6">
+			{/* <h4>hello comment builder section</h4> */}
+			<Formik initialValues={initialValues} validationSchema={commentSchema}>
+				{({ isValid, dirty, values, isSubmitting, handleBlur, errors, handleChange, touched, ...props }) => (
+					<Form
+						onSubmit={(e) => {
+							e.preventDefault();
+							const comment = {
+								postId: site.id,
+								profileId: auth.profile.id,
+								userId: auth.user.id,
+								content: values.content
+							};
+							postComment(comment, auth.token);
+						}}
+					>
+						<Field
+							{...field[0]}
+							onChange={handleChange}
+							onBlur={handleBlur}
+							touched={touched[field[0].name]}
+							errors={errors[field[0].name]}
+						/>
+						<button
+							id="LoginButton"
+							className="btn btn-success text-uppercase"
+							type="submit"
+							style={{
+								...LoginButton
+							}}
+							disabled={!isValid || !dirty || isSubmitting}
+						>
+							Comment
+						</button>
+					</Form>
+				)}
+			</Formik>
 		</div>
 	);
 };
