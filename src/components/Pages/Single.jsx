@@ -10,7 +10,7 @@ import CommentBuilder from '../common/CommentBuilder';
 const Single = ({ getSinglePost, site, auth: { token }, ...props }) => {
 	try {
 		React.useEffect(() => {
-			console.log('tyring to get the single post by slug');
+			// console.log('tyring to get the single post by slug');
 			getSinglePost(props.match.params.slug, token);
 		}, []);
 	} catch (error) {
@@ -49,6 +49,18 @@ const Single = ({ getSinglePost, site, auth: { token }, ...props }) => {
 							</p>
 						)}
 					</div>
+				</div>
+
+				<div className="row">
+					{site &&
+						site.post.Comments &&
+						site.post.Comments.length > 0 &&
+						site.post.Comments.map((comment, idx) => (
+							<div className="col-md-12" key={idx}>
+								<h4>{comment.Profile ? comment.Profile.name : ''}</h4>
+								<p>{comment.content}</p>
+							</div>
+						))}
 				</div>
 			</div>
 		</div>

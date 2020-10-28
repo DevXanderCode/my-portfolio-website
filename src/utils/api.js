@@ -108,7 +108,7 @@ const API = {
 						where: {
 							slug
 						},
-						include: [ 'PostImage', 'Comments' ]
+						include: [ 'PostImage', { Comments: 'Profile' } ]
 					}
 				}
 			})
@@ -118,9 +118,11 @@ const API = {
 			});
 	},
 	postComment: (comment, token, success) => {
-		axios.post(`${host}/api/comments?access_token=${token}`, comment).then((res) => {
-			success(res);
-		});
+		axios
+			.post(`${host}/api/comments?access_token=${token}`, comment, { params: { filter: { include: 'Profile' } } })
+			.then((res) => {
+				success(res);
+			});
 	}
 };
 

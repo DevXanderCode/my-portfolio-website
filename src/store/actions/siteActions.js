@@ -47,6 +47,7 @@ export const getPostBySlug = (slug, token) => {
 export const postComment = (comment, token) => {
 	return (dispatch) => {
 		API.postComment(comment, token, (res) => {
+			console.log('logging post commit res: ', res);
 			res === 200 &&
 				dispatch({
 					type: 'ADDED_COMMENT',
