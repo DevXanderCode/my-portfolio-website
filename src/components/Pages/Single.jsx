@@ -36,6 +36,58 @@ const Single = ({ getSinglePost, site, auth: { token }, ...props }) => {
 		}
 	};
 
+	const colors = { first: '#27d683', second: '#ff6666', third: '#da4453', fourth: '#2541b2', fifth: '#ed5665' };
+
+	const initialfunc = (initial) => {
+		const charCode = initial.charCodeAt(0);
+		if (charCode <= 69) {
+			return (
+				<div
+					className="col-md-1 nameInitial text-center ml-2 px-1 py-1"
+					style={{ backgroundColor: `${colors.first}` }}
+				>
+					{initial}
+				</div>
+			);
+		} else if (charCode <= 74) {
+			return (
+				<div
+					className="col-md-1 nameInitial text-center ml-2 px-1 py-1"
+					style={{ backgroundColor: `${colors.second}` }}
+				>
+					{initial}
+				</div>
+			);
+		} else if (charCode <= 79) {
+			return (
+				<div
+					className="col-md-1 nameInitial text-center ml-2 px-1 py-1"
+					style={{ backgroundColor: `${colors.third}` }}
+				>
+					{initial}
+				</div>
+			);
+		} else if (charCode <= 84) {
+			return (
+				<div
+					className="col-md-1 nameInitial text-center ml-2 px-1 py-1"
+					style={{ backgroundColor: `${colors.fourth}` }}
+				>
+					{initial}
+				</div>
+			);
+		} else if (charCode <= 90) {
+			return (
+				<div
+					className="col-md-1 nameInitial text-center ml-2 px-1 py-1"
+					style={{ backgroundColor: `${colors.fifth}` }}
+				>
+					{initial}
+				</div>
+			);
+		}
+	};
+
 	const { title, PostImage, content } = site;
 
 	// console.log('logging site', site);
@@ -56,8 +108,9 @@ const Single = ({ getSinglePost, site, auth: { token }, ...props }) => {
 		}
 		.nameInitial{
 			border-radius: 50%;
-			background-color: rgba(123, 231, 211, .6);
-			font-size: 1.3rem
+			// background-color: #2541b2;	
+			font-size: 1.3rem;
+			color: white
 		}
 		`,
 		<div>
@@ -83,9 +136,11 @@ const Single = ({ getSinglePost, site, auth: { token }, ...props }) => {
 								site.post.Comments.map((comment, idx) => (
 									<div className="col-md-6 m-3 p-2 comment" key={idx}>
 										<div className="row">
-											<div className="col-md-1 nameInitial text-center ml-2 px-1 py-1 text-capitalize">
-												{comment.Profile ? comment.Profile.name[0] : ''}
-											</div>
+											{comment.Profile ? initialfunc(comment.Profile.name[0].toUpperCase()) : ''}
+											{/* <div className="col-md-1 nameInitial text-center ml-2 px-1 py-1">
+												{comment.Profile ? comment.Profile.name[0].toUpperCase() : ''}
+											</div> */}
+
 											<h4 className="col-md-6" style={{ margin: 'auto 0' }}>
 												{comment.Profile ? comment.Profile.name : ''}
 											</h4>
