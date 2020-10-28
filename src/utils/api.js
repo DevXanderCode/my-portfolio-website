@@ -10,6 +10,19 @@ const API = {
 			success(res);
 		});
 	},
+	getUser: (userId, token, success) => {
+		axios
+			.get(`${host}/api/users/${userId}?access_token=${token}`, {
+				params: {
+					filter: {
+						include: 'Profile'
+					}
+				}
+			})
+			.then((res) => {
+				success(res);
+			});
+	},
 	register: (name, email, password, success) => {
 		axios
 			.post(`${host}/api/users/`, { name, email, password })

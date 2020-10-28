@@ -29,7 +29,7 @@ const Single = ({ getSinglePost, site, auth: { token }, ...props }) => {
 		<div>
 			<Header
 				subtitle={title}
-				image={PostImage.length > 0 && API.makeFileUrl(PostImage[0].url, null)}
+				image={PostImage && PostImage.length > 0 && API.makeFileUrl(PostImage[0].url, null)}
 				showButton={false}
 			/>
 			<div className="container mt-5">
