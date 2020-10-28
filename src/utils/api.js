@@ -95,13 +95,20 @@ const API = {
 						where: {
 							slug
 						},
-						include: 'PostImage'
+						include: [ 'PostImage', 'Comments' ]
+						// include: 'Comments'
 					}
 				}
 			})
 			.then((res) => {
+				console.log('logging response: ', res);
 				success(res);
 			});
+	},
+	postComment: (comment, token, success) => {
+		axios.post(`${host}/api/comments?access_token=${token}`, comment).then((res) => {
+			success(res);
+		});
 	}
 };
 

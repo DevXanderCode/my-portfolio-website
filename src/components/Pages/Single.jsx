@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import Style from 'style-it';
+import { Link } from 'react-router-dom';
 import API from '../../utils/api';
 import Header from '../common/Header';
 import * as SiteActions from '../../store/actions/siteActions';
+import CommentBuilder from '../common/CommentBuilder';
 
-const Single = ({ getSinglePost, site: { title, PostImage, content }, auth: { token }, ...props }) => {
+const Single = ({ getSinglePost, site, auth: { token }, ...props }) => {
 	try {
 		React.useEffect(() => {
 			console.log('tyring to get the single post by slug');
@@ -15,6 +17,10 @@ const Single = ({ getSinglePost, site: { title, PostImage, content }, auth: { to
 		console.log('got this error when i tried to get post by slug', error);
 		throw error;
 	}
+
+	const { title, PostImage, content } = site;
+
+	// console.log('logging site', site);
 
 	return Style.it(
 		`.post-content img{
@@ -30,6 +36,18 @@ const Single = ({ getSinglePost, site: { title, PostImage, content }, auth: { to
 				<div className="row">
 					<div className="col-md-9">
 						<div className="post-content" dangerouslySetInnerHTML={{ __html: content }} />
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-md-12">
+						<h3>Comments</h3>
+						{token ? (
+							<CommentBuilder />
+						) : (
+							<p>
+								Need an account? <Link to="/signup">Signup</Link>
+							</p>
+						)}
 					</div>
 				</div>
 			</div>

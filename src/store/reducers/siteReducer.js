@@ -22,6 +22,7 @@ const site = (state = defaultState, action) => {
 				post: action.payload
 			};
 		case 'SET_FULL_POST_DATA':
+			// console.log('logging action: ', action.payload);
 			return {
 				...state.post,
 				...action.payload

@@ -194,7 +194,7 @@ const Signup = ({ handleChange, handleSubmit, handleBlur, touched, errors, value
 									style={{
 										...LoginButton
 									}}
-									disabled={!isValid}
+									disabled={!isValid || !dirty}
 								>
 									Signup
 								</button>
