@@ -6,9 +6,14 @@ const API = {
 		return host + url + '?access_token=' + token;
 	},
 	login: (email, password, success) => {
-		axios.post(`${host}/api/users/login`, { email, password }).then((res) => {
-			success(res);
-		});
+		axios
+			.post(`${host}/api/users/login`, {
+				email,
+				password
+			})
+			.then((res) => {
+				success(res);
+			});
 	},
 	getUser: (userId, token, success) => {
 		axios
@@ -25,7 +30,11 @@ const API = {
 	},
 	register: (name, email, password, success) => {
 		axios
-			.post(`${host}/api/users/`, { name, email, password })
+			.post(`${host}/api/users/`, {
+				name,
+				email,
+				password
+			})
 			.then((res) => {
 				success(res);
 			})
@@ -108,7 +117,12 @@ const API = {
 						where: {
 							slug
 						},
-						include: [ 'PostImage', { Comments: 'Profile' } ]
+						include: [
+							'PostImage',
+							{
+								Comments: 'Profile'
+							}
+						]
 					}
 				}
 			})
@@ -120,7 +134,27 @@ const API = {
 	getCommentById: (commentId, token, success) => {
 		axios
 			.get(`${host}/api/Comments/${commentId}?access_token=${token}`, {
-				params: { filter: { include: 'Profile' } }
+				params: {
+					filter: {
+						include: 'Profile'
+					}
+				}
+			})
+			.then((res) => {
+				success(res);
+			});
+	},
+	getComments: (postId, token, success) => {
+		axios
+			.get(`${host}/api/Comments?access_token=${token}`, {
+				params: {
+					filter: {
+						include: 'Profile',
+						where: {
+							postId
+						}
+					}
+				}
 			})
 			.then((res) => {
 				success(res);
@@ -128,7 +162,13 @@ const API = {
 	},
 	postComment: (comment, token, success) => {
 		axios
-			.post(`${host}/api/comments?access_token=${token}`, comment, { params: { filter: { include: 'Profile' } } })
+			.post(`${host}/api/comments?access_token=${token}`, comment, {
+				params: {
+					filter: {
+						include: 'Profile'
+					}
+				}
+			})
 			.then((res) => {
 				success(res);
 			});

@@ -1,8 +1,7 @@
 const defaultState = {
 	posts: [],
 	postCount: 0,
-	post: {},
-	Comments: []
+	post: {}
 };
 
 const site = (state = defaultState, action) => {
@@ -23,7 +22,7 @@ const site = (state = defaultState, action) => {
 				post: action.payload
 			};
 		case 'SET_FULL_POST_DATA':
-			// console.log('logging action: ', action.payload);
+			console.log('logging action: ', action);
 			return {
 				...state,
 				post: {
@@ -37,6 +36,15 @@ const site = (state = defaultState, action) => {
 				post: {
 					...state.post,
 					Comments: state.Comments.concat(action.payload)
+				}
+			};
+		case 'GOT_COMMENTS':
+			console.log('logging action: ', action.payload);
+			return {
+				...state,
+				post: {
+					...state.post,
+					Comments: action.payload
 				}
 			};
 		default:

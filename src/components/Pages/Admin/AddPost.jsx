@@ -46,7 +46,7 @@ const styles = (theme) => ({
 	},
 	richEditor: {
 		marginLeft: theme.spacing(-3),
-		marginRight: theme.spacing(-3),
+		marginRight: theme.spacing(-3)
 	}
 });
 
@@ -95,9 +95,9 @@ class AddPost extends React.Component {
 			[ { header: [ 1, 2, 3, 4, 5, 6, false ] } ],
 			[ { list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' } ],
 			[ { size: [ 'small', 'medium', 'large', 'huge' ] } ],
-			[ { "color": []}, { "background": []}],
-			["image"],
-			[ "clean"]
+			[ { color: [] }, { background: [] } ],
+			[ 'image' ],
+			[ 'clean' ]
 		]
 	};
 
@@ -119,7 +119,7 @@ class AddPost extends React.Component {
 	];
 	render() {
 		const { classes, setFieldTouched, setFieldValue, isValid, dirty, isSubmitting, handleSubmit } = this.props;
-
+		console.log('logging from add post : ', this.props.admin.post.id, this.props.auth.user.userId);
 		return (
 			<div className={classes.container}>
 				<h1>Add Posts</h1>

@@ -30,7 +30,7 @@ const LoginButton = {
 	marginTop: '5%'
 };
 
-const CommentBuilder = ({ postComment, auth, site, values, ...props }) => {
+const CommentBuilder = ({ postComment, getComments, auth, site, values, ...props }) => {
 	return (
 		<div className="col-md-6">
 			{/* <h4>hello comment builder section</h4> */}
@@ -57,6 +57,7 @@ const CommentBuilder = ({ postComment, auth, site, values, ...props }) => {
 								content: values.content
 							};
 							postComment(comment, auth.token);
+							// getComments(auth.token);
 							// setFieldValue('content', '');
 						}}
 					>
@@ -96,6 +97,9 @@ const mapDispatchToProps = (dispatch) => ({
 	postComment: (comment, token) => {
 		dispatch(SiteActions.postComment(comment, token));
 	}
+	// getComments: (token) => {
+	// 	dispatch(SiteActions.getComments(token));
+	// }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentBuilder);

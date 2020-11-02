@@ -9,11 +9,12 @@ import * as SiteActions from '../../store/actions/siteActions';
 import CommentBuilder from '../common/CommentBuilder';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
-const Single = ({ getSinglePost, site, auth: { token }, ...props }) => {
+const Single = ({ getSinglePost, getComments, site, auth: { token }, ...props }) => {
 	try {
 		React.useEffect(() => {
 			// console.log('tyring to get the single post by slug');
 			getSinglePost(props.match.params.slug, token);
+			getComments(site.post.postId, token);
 		}, []);
 	} catch (error) {
 		console.log('got this error when i tried to get post by slug', error);
@@ -88,13 +89,13 @@ const Single = ({ getSinglePost, site, auth: { token }, ...props }) => {
 		}
 	};
 
-	const { title, PostImage, content } = site;
+	const { title, PostImage, content } = site.post[0];
 
-	// console.log('logging site', site);
+	console.log('logging site', site);
 
 	return Style.it(
 		`.post-content img{
-		max-width: 100%;
+		width: 100%;
 		}
 		.comment{
 			box-shadow: 0px 5px 10px rgba(112,112,112,.5);
@@ -136,11 +137,11 @@ const Single = ({ getSinglePost, site, auth: { token }, ...props }) => {
 								site.post.Comments.map((comment, idx) => (
 									<div className="col-md-6 m-3 p-2 comment" key={idx}>
 										<div className="row">
-											{comment.Profile ? initialfunc(comment.Profile.name[0].toUpperCase()) : ''}
-											{/* <div className="col-md-1 nameInitial text-center ml-2 px-1 py-1">
-												{comment.Profile ? comment.Profile.name[0].toUpperCase() : ''}
-											</div> */}
-
+											{comment.Profile && comment.Profile.name ? (
+												initialfunc(comment.Profile.name[0].toUpperCase())
+											) : (
+												''
+											)}
 											<h4 className="col-md-6" style={{ margin: 'auto 0' }}>
 												{comment.Profile ? comment.Profile.name : ''}
 											</h4>
@@ -175,6 +176,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
 	getSinglePost: (slug, token) => {
 		dispatch(SiteActions.getPostBySlug(slug, token));
+	},
+	getComments: (postId, token) => {
+		dispatch(SiteActions.getComments(postId, token));
 	}
 });
 
