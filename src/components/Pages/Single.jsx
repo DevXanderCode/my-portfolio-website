@@ -14,8 +14,18 @@ const Single = ({ getSinglePost, getComments, site, auth: { token }, ...props })
 		React.useEffect(() => {
 			// console.log('tyring to get the single post by slug');
 			getSinglePost(props.match.params.slug, token);
-			getComments(site.post.postId, token);
 		}, []);
+	} catch (error) {
+		console.log('got this error when i tried to get post by slug', error);
+		throw error;
+	}
+	try {
+		React.useEffect(
+			() => {
+				getComments(site.post[0].id, token);
+			},
+			[ site.post ]
+		);
 	} catch (error) {
 		console.log('got this error when i tried to get post by slug', error);
 		throw error;
@@ -32,7 +42,7 @@ const Single = ({ getSinglePost, getComments, site, auth: { token }, ...props })
 			return `${Math.floor(diff / 60)} min ago`;
 		} else if (diff > 3600 && diff < 86400) {
 			return `${Math.floor(diff / 3600)} hours ago`;
-		} else if ((diff >= 86400 && diff < 604, 800)) {
+		} else if (diff >= 86400) {
 			return `${Math.floor(diff / 86400)} days ago`;
 		}
 	};
