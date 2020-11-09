@@ -35,11 +35,11 @@ export const setPostData = (post) => {
 export const getPostBySlug = (slug, token) => {
 	return (dispatch) => {
 		API.getPostBySlug(slug, token, (res) => {
-			console.log('logging res: ', res);
+			// console.log('logging res: ', res);
 			API.getComments(res.data.id, token, (res2) => {
 				dispatch({
 					type: 'SET_FULL_POST_DATA',
-					payload: [ res.data, res2.data ]
+					payload: { ...res.data, ...res2.data }
 				});
 			});
 		});
@@ -60,7 +60,7 @@ export const getComments = (postId, token) => {
 export const postComment = (comment, token) => {
 	return (dispatch) => {
 		API.postComment(comment, token, (res) => {
-			console.log('logging post commit res: ', res);
+			// console.log('logging post commit res: ', res);
 			res.status === 200 &&
 				API.getComments(res.data.postId, token, (res2) => {
 					dispatch({

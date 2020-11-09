@@ -51,7 +51,7 @@ const CommentBuilder = ({ postComment, getComments, auth, site, values, ...props
 						onSubmit={(e) => {
 							e.preventDefault();
 							const comment = {
-								postId: site.post[0].id,
+								postId: site.post.id,
 								profileId: auth.profile.id,
 								userId: auth.user.id,
 								content: values.content

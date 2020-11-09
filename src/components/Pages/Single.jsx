@@ -22,9 +22,9 @@ const Single = ({ getSinglePost, getComments, site, auth: { token }, ...props })
 	try {
 		React.useEffect(
 			() => {
-				getComments(site.post[0].id, token);
+				getComments(site.post.id, token);
 			},
-			[ site.post ]
+			[ site ]
 		);
 	} catch (error) {
 		console.log('got this error when i tried to get post by slug', error);
@@ -99,13 +99,16 @@ const Single = ({ getSinglePost, getComments, site, auth: { token }, ...props })
 		}
 	};
 
-	const { title, PostImage, content } = site.post[0];
+	const { title, PostImage, content } = site.post;
 
-	console.log('logging site', site);
+	// console.log('logging site', site);
 
 	return Style.it(
 		`.post-content img{
-		max-width: 100%;
+		width: 100%;
+		}
+		.post-content p{
+			display: block;
 		}
 		.comment{
 			box-shadow: 0px 5px 10px rgba(112,112,112,.5);

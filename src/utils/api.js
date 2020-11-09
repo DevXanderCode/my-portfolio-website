@@ -127,7 +127,7 @@ const API = {
 				}
 			})
 			.then((res) => {
-				console.log('logging response: ', res);
+				// console.log('logging response: ', res);
 				success(res);
 			});
 	},

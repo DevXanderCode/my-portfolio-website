@@ -66,7 +66,6 @@ class AddPost extends React.Component {
 		) {
 			const post = this.props.admin.posts.filter((p) => p.title === this.props.values.title)[0];
 			this.props.history.push(`/admin/posts/edit/${post.id}` + post.dispatch);
-			this.props.setValues({});
 		}
 
 		if (this.props.admin.post.id !== props.admin.post.id) {
@@ -168,13 +167,17 @@ class AddPost extends React.Component {
 								{isSubmitting ? 'Saving' : 'Save'}
 							</Button>
 						</div>
-						{this.props.admin.post.PostImage &&
+						{this.props.match.params.view === 'add' ? (
+							''
+						) : (
+							this.props.admin.post.PostImage &&
 							(this.props.admin.post.PostImage.length > 0 ? (
 								<img
 									src={API.makeFileUrl(this.props.admin.post.PostImage[0].url, this.props.auth.token)}
 									className={classes.postImage}
 								/>
-							) : null)}
+							) : null)
+						)}
 						<div>
 							<Button
 								variant="contained"
@@ -222,13 +225,26 @@ const mapDispatchToProps = (dispatch) => ({
 export default withRouter(
 	connect(mapStateToProps, mapDispatchToProps)(
 		withFormik({
-			mapPropsToValues: ({ admin: { post }, ...props }) => ({
-				title: post.title || '',
-				slug: post.slug || '',
-				createdAt: post.createdAt || '',
-				status: post.status || false,
-				content: post.content || ''
-			}),
+			mapPropsToValues: ({ admin: { post }, ...props }) => {
+				console.log('logging', props);
+				if (props.match.params.view === 'add') {
+					return {
+						title: '',
+						slug: '',
+						createdAt: '',
+						status: false,
+						content: ''
+					};
+				} else {
+					return {
+						title: post.title || '',
+						slug: post.slug || '',
+						createdAt: post.createdAt || '',
+						status: post.status || false,
+						content: post.content || ''
+					};
+				}
+			},
 			validationSchema: postSchema,
 			handleSubmit: (values, { setSubmitting, props: { addPost, updatePost, auth: { token }, ...props } }) => {
 				console.log('saving', addPost);

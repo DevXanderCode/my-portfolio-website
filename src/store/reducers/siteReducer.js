@@ -26,7 +26,7 @@ const site = (state = defaultState, action) => {
 				}
 			};
 		case 'SET_FULL_POST_DATA':
-			console.log('logging action: ', action);
+			// console.log('logging action: ', action);
 			return {
 				...state,
 				post: {
@@ -43,7 +43,7 @@ const site = (state = defaultState, action) => {
 				}
 			};
 		case 'GOT_COMMENTS':
-			console.log('logging action: ', action.payload);
+			// console.log('logging action: ', action.payload);
 			return {
 				...state,
 				post: {
