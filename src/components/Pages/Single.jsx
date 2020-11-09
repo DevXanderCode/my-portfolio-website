@@ -27,13 +27,13 @@ const Single = ({ getSinglePost, getComments, site, auth: { token }, ...props })
 		if (diff === 0 || diff < 60) {
 			return 'just now';
 		} else if (diff === 60) {
-			return '1 min';
+			return '1 min ago';
 		} else if (diff > 60 && diff < 3600) {
-			return `${Math.floor(diff / 60)} min`;
+			return `${Math.floor(diff / 60)} min ago`;
 		} else if (diff > 3600 && diff < 86400) {
-			return `${Math.floor(diff / 3600)} hours`;
+			return `${Math.floor(diff / 3600)} hours ago`;
 		} else if ((diff >= 86400 && diff < 604, 800)) {
-			return `${Math.floor(diff / 86400)} days`;
+			return `${Math.floor(diff / 86400)} days ago`;
 		}
 	};
 

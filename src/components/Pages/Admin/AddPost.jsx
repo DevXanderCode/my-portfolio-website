@@ -66,6 +66,7 @@ class AddPost extends React.Component {
 		) {
 			const post = this.props.admin.posts.filter((p) => p.title === this.props.values.title)[0];
 			this.props.history.push(`/admin/posts/edit/${post.id}` + post.dispatch);
+			this.props.setValues({});
 		}
 
 		if (this.props.admin.post.id !== props.admin.post.id) {
@@ -119,7 +120,7 @@ class AddPost extends React.Component {
 	];
 	render() {
 		const { classes, setFieldTouched, setFieldValue, isValid, dirty, isSubmitting, handleSubmit } = this.props;
-		console.log('logging ids from add post : ', this.props.admin.post.id, this.props.auth.user.userId);
+		console.log('logging ids from add post : ', this.props.admin.post.id, this.props.auth.user.id);
 		return (
 			<div className={classes.container}>
 				<h1>Add Posts</h1>
