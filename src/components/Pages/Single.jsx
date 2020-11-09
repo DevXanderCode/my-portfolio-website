@@ -95,7 +95,7 @@ const Single = ({ getSinglePost, getComments, site, auth: { token }, ...props })
 
 	return Style.it(
 		`.post-content img{
-		width: 100%;
+		max-width: 100%;
 		}
 		.comment{
 			box-shadow: 0px 5px 10px rgba(112,112,112,.5);
@@ -139,10 +139,16 @@ const Single = ({ getSinglePost, getComments, site, auth: { token }, ...props })
 											{comment.Profile && comment.Profile.name ? (
 												initialfunc(comment.Profile.name[0].toUpperCase())
 											) : (
-												''
+												initialfunc('N')
 											)}
 											<h4 className="col-md-6" style={{ margin: 'auto 0' }}>
-												{comment.Profile ? comment.Profile.name : ''}
+												{comment.Profile ? comment.Profile.name ? (
+													comment.Profile.name
+												) : (
+													'No Name Found'
+												) : (
+													'No Name Found'
+												)}
 											</h4>
 											<div className="col-md-4 timeStamp">
 												<AccessTimeIcon className="mr-1" />
