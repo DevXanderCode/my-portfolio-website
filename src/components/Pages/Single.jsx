@@ -108,8 +108,7 @@ const Single = ({ getSinglePost, getComments, site, auth: { token }, ...props })
 			text-align: center;
 		}
 		.nameInitial{
-			border-radius: 50%;
-			// background-color: #2541b2;	
+			border-radius: 50%;	
 			font-size: 1.3rem;
 			color: white
 		}

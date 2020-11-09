@@ -66,8 +66,6 @@ class AddPost extends React.Component {
 		) {
 			const post = this.props.admin.posts.filter((p) => p.title === this.props.values.title)[0];
 			this.props.history.push(`/admin/posts/edit/${post.id}` + post.dispatch);
-		} else if (this.props.isSubmitting) {
-			this.props.history.push('/admin/posts');
 		}
 
 		if (this.props.admin.post.id !== props.admin.post.id) {
@@ -86,7 +84,9 @@ class AddPost extends React.Component {
 		const data = new FormData();
 		data.append('file', e.target.files[0], new Date().getTime().toString() + e.target.files[0].name);
 
-		this.props.uploadImage(data, this.props.auth.token, this.props.admin.post.id, this.props.auth.user.userId);
+		this.props.uploadImage(data, this.props.auth.token, this.props.admin.post.id, this.props.auth.user.id);
+
+		this.props.history.push('/admin/posts');
 	};
 
 	modules = {
@@ -119,7 +119,7 @@ class AddPost extends React.Component {
 	];
 	render() {
 		const { classes, setFieldTouched, setFieldValue, isValid, dirty, isSubmitting, handleSubmit } = this.props;
-		console.log('logging from add post : ', this.props.admin.post.id, this.props.auth.user.userId);
+		console.log('logging ids from add post : ', this.props.admin.post.id, this.props.auth.user.userId);
 		return (
 			<div className={classes.container}>
 				<h1>Add Posts</h1>
@@ -161,6 +161,7 @@ class AddPost extends React.Component {
 								color="secondary"
 								variant="contained"
 								type="submit"
+								// onClick={(e) => this.props.handleSubmit()}
 							>
 								<SaveIcon />
 								{isSubmitting ? 'Saving' : 'Save'}
@@ -187,7 +188,7 @@ class AddPost extends React.Component {
 								type="file"
 								style={{ display: 'none' }}
 								className="myFile"
-								onChange={this.uploadImage}
+								onChange={(e) => this.uploadImage(e)}
 							/>
 						</div>
 					</Paper>

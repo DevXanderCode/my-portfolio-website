@@ -29,7 +29,7 @@ const Blog = ({ getPosts, getPostCount, site: { posts, postCount }, ...props }) 
 							posts.map(({ title, slug, id, content, PostImage }, idx) => {
 								const imageThumbnail =
 									PostImage && PostImage.length > 0
-										? API.makeFileUrl(PostImage[0].thubnail, null)
+										? API.makeFileUrl(PostImage[0].thumbnail, null)
 										: null;
 								return (
 									<SinglePortfolio

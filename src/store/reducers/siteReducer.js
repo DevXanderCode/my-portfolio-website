@@ -1,7 +1,8 @@
 const defaultState = {
 	posts: [],
 	postCount: 0,
-	post: {}
+	post: {},
+	Comments: []
 };
 
 const site = (state = defaultState, action) => {
@@ -19,7 +20,10 @@ const site = (state = defaultState, action) => {
 		case 'SET_DEFAULT_POST_DATA':
 			return {
 				...state,
-				post: action.payload
+				post: {
+					...state.post,
+					...action.payload
+				}
 			};
 		case 'SET_FULL_POST_DATA':
 			console.log('logging action: ', action);
