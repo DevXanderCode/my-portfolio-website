@@ -34,7 +34,20 @@ const CommentBuilder = ({ postComment, getComments, auth, site, values, ...props
 	return (
 		<div className="col-md-6">
 			{/* <h4>hello comment builder section</h4> */}
-			<Formik initialValues={initialValues} validationSchema={commentSchema}>
+			<Formik
+				initialValues={initialValues}
+				validationSchema={commentSchema}
+				onSubmit={(values, { resetForm }) => {
+					const comment = {
+						postId: site.post.id,
+						profileId: auth.profile.id,
+						userId: auth.user.id,
+						content: values.content
+					};
+					postComment(comment, auth.token);
+					resetForm({});
+				}}
+			>
 				{({
 					isValid,
 					dirty,
@@ -45,27 +58,23 @@ const CommentBuilder = ({ postComment, getComments, auth, site, values, ...props
 					handleChange,
 					touched,
 					setFieldValue,
+					resetForm,
+					handleSubmit,
 					...props
 				}) => (
 					<Form
-						onSubmit={(e) => {
-							e.preventDefault();
-							const comment = {
-								postId: site.post.id,
-								profileId: auth.profile.id,
-								userId: auth.user.id,
-								content: values.content
-							};
-							postComment(comment, auth.token);
-							// getComments(auth.token);
+						onSubmit={
+							handleSubmit
+							// resetForm({});
 							// setFieldValue('content', '');
-						}}
+						}
 					>
 						<h5>Add Comment</h5>
 						<Field
 							{...field[0]}
 							onChange={handleChange}
 							onBlur={handleBlur}
+							value={values.content}
 							touched={touched[field[0].name]}
 							errors={errors[field[0].name]}
 						/>
@@ -97,9 +106,6 @@ const mapDispatchToProps = (dispatch) => ({
 	postComment: (comment, token) => {
 		dispatch(SiteActions.postComment(comment, token));
 	}
-	// getComments: (token) => {
-	// 	dispatch(SiteActions.getComments(token));
-	// }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentBuilder);

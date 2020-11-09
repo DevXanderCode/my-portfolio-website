@@ -119,7 +119,6 @@ class AddPost extends React.Component {
 	];
 	render() {
 		const { classes, setFieldTouched, setFieldValue, isValid, dirty, isSubmitting, handleSubmit } = this.props;
-		console.log('logging ids from add post : ', this.props.admin.post.id, this.props.auth.user.id);
 		return (
 			<div className={classes.container}>
 				<h1>Add Posts</h1>
@@ -226,7 +225,6 @@ export default withRouter(
 	connect(mapStateToProps, mapDispatchToProps)(
 		withFormik({
 			mapPropsToValues: ({ admin: { post }, ...props }) => {
-				console.log('logging', props);
 				if (props.match.params.view === 'add') {
 					return {
 						title: '',
