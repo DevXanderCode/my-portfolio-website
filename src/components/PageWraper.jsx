@@ -7,10 +7,8 @@ import Style from 'style-it';
 const PageWrapper = ({ token, logout, noScroll = false, ...props }) => {
 	const [ show, handleShow ] = React.useState(false);
 
-	console.log('logging no scroll', noScroll);
 	React.useEffect(() => {
 		if (noScroll) {
-			console.log('true no scroll is true');
 			handleShow(true);
 		}
 		window.addEventListener('scroll', () => {
