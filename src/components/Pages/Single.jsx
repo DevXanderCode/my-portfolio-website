@@ -122,7 +122,7 @@ const Single = ({ getSinglePost, getComments, site, auth: { token }, ...props })
 		}
 		.nameInitial{
 			border-radius: 50%;	
-			font-size: 1.3rem;
+			font-size: 1.48rem;
 			color: white
 		}
 		`,

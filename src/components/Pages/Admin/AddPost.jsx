@@ -245,7 +245,7 @@ export default withRouter(
 			},
 			validationSchema: postSchema,
 			handleSubmit: (values, { setSubmitting, props: { addPost, updatePost, auth: { token }, ...props } }) => {
-				console.log('saving', addPost);
+				// console.log('saving', addPost);
 				if (props.match.params.view === 'edit') {
 					const post = {
 						...values,

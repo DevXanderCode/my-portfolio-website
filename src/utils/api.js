@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-const host = 'http://localhost:4000';
+const host =
+	process.env.NODE_ENV === 'development'
+		? 'http://localhost:4000'
+		: 'https://my-portfolio-website-backend.herokuapp.com';
 const API = {
 	makeFileUrl: (url, token) => {
 		return host + url + '?access_token=' + token;
