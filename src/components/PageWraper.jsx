@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 const PageWrapper = (props) => {
 	return (
@@ -71,4 +72,10 @@ const PageWrapper = (props) => {
 	);
 };
 
-export default PageWrapper;
+const mapStateToProps = (state) => ({
+	...state.auth
+});
+
+const mapDispatchToProps = (dispatch) => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PageWrapper);
