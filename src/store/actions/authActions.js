@@ -28,3 +28,9 @@ export const register = (name, email, password) => {
 		});
 	};
 };
+
+export const logout = () => {
+	return (dispatch) => {
+		API.logout(dispatch({ type: 'LOGOUT', payload: null }));
+	};
+};

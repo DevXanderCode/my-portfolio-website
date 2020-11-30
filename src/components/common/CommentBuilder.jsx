@@ -38,12 +38,14 @@ const CommentBuilder = ({ postComment, getComments, auth, site, values, ...props
 				initialValues={initialValues}
 				validationSchema={commentSchema}
 				onSubmit={(values, { resetForm }) => {
+					console.log('posting comment', site.post);
 					const comment = {
 						postId: site.post.id,
 						profileId: auth.profile.id,
 						userId: auth.user.id,
 						content: values.content
 					};
+					console.log('posting comment1', comment);
 					postComment(comment, auth.token);
 					resetForm({});
 				}}

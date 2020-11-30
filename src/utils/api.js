@@ -175,6 +175,16 @@ const API = {
 			.then((res) => {
 				success(res);
 			});
+	},
+	logout: (token, success) => {
+		axios
+			.post(`${host}/api/users/logout?access_token=${token}`)
+			.then((res) => {
+				success(res);
+			})
+			.catch((err) => {
+				console.log('got this error when i tried to logout', err);
+			});
 	}
 };
 
