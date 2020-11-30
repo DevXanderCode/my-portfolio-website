@@ -43,7 +43,8 @@ const CommentBuilder = ({ postComment, getComments, auth, site, values, ...props
 						postId: site.post.id,
 						profileId: auth.profile.id,
 						userId: auth.user.id,
-						content: values.content
+						content: values.content,
+						date: new Date()
 					};
 					console.log('posting comment1', comment);
 					postComment(comment, auth.token);

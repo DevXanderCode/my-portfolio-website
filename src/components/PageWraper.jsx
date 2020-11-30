@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import * as AuthActions from '../store/actions/authActions';
 
-const PageWrapper = (props) => {
+const PageWrapper = ({ token, logout, ...props }) => {
 	return (
 		<div>
 			<nav
@@ -59,9 +60,22 @@ const PageWrapper = (props) => {
 								</Link>
 							</li>
 							<li className="nav-item">
-								<Link className="nav-link js-scroll-trigger" to="/admin">
-									Login
-								</Link>
+								{token ? (
+									<Link
+										className="nav-link js-scroll-trigger"
+										to="/"
+										onClick={(e) => {
+											logout(token);
+											console.log('loggout');
+										}}
+									>
+										Logout
+									</Link>
+								) : (
+									<Link className="nav-link js-scroll-trigger" to="/admin">
+										Login
+									</Link>
+								)}
 							</li>
 						</ul>
 					</div>
@@ -76,6 +90,10 @@ const mapStateToProps = (state) => ({
 	...state.auth
 });
 
-const mapDispatchToProps = (dispatch) => ({});
+const mapDispatchToProps = (dispatch) => ({
+	logout: (token) => {
+		dispatch(AuthActions.logout(token));
+	}
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageWrapper);

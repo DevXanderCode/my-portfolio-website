@@ -32,8 +32,9 @@ const Single = ({ getSinglePost, getComments, site, auth: { token }, ...props })
 	}
 
 	const dateFunc = (date) => {
-		let diff = moment().diff(moment().format(`${date}`), 's');
-
+		let today = moment(new Date());
+		let diff = today.diff(moment(`${date}`), 'second');
+		// console.log('logging diff', diff);
 		if (diff === 0 || diff < 60) {
 			return 'just now';
 		} else if (diff === 60) {
@@ -54,7 +55,7 @@ const Single = ({ getSinglePost, getComments, site, auth: { token }, ...props })
 		if (charCode <= 69) {
 			return (
 				<div
-					className="col-md-1 nameInitial text-center ml-2 px-1 py-1"
+					className="col-md-1 nameInitial text-center ml-3 px-1 py-1"
 					style={{ backgroundColor: `${colors.first}` }}
 				>
 					{initial}
@@ -63,7 +64,7 @@ const Single = ({ getSinglePost, getComments, site, auth: { token }, ...props })
 		} else if (charCode <= 74) {
 			return (
 				<div
-					className="col-md-1 nameInitial text-center ml-2 px-1 py-1"
+					className="col-md-1 nameInitial text-center ml-3 px-1 py-1"
 					style={{ backgroundColor: `${colors.second}` }}
 				>
 					{initial}
@@ -72,7 +73,7 @@ const Single = ({ getSinglePost, getComments, site, auth: { token }, ...props })
 		} else if (charCode <= 79) {
 			return (
 				<div
-					className="col-md-1 nameInitial text-center ml-2 px-1 py-1"
+					className="col-md-1 nameInitial text-center ml-3 px-1 py-1"
 					style={{ backgroundColor: `${colors.third}` }}
 				>
 					{initial}
@@ -81,7 +82,7 @@ const Single = ({ getSinglePost, getComments, site, auth: { token }, ...props })
 		} else if (charCode <= 84) {
 			return (
 				<div
-					className="col-md-1 nameInitial text-center ml-2 px-1 py-1"
+					className="col-md-1 nameInitial text-center ml-3 px-1 py-1"
 					style={{ backgroundColor: `${colors.fourth}` }}
 				>
 					{initial}
@@ -90,7 +91,7 @@ const Single = ({ getSinglePost, getComments, site, auth: { token }, ...props })
 		} else if (charCode <= 90) {
 			return (
 				<div
-					className="col-md-1 nameInitial text-center ml-2 px-1 py-1"
+					className="col-md-1 nameInitial text-center ml-3 px-1 py-1"
 					style={{ backgroundColor: `${colors.fifth}` }}
 				>
 					{initial}
@@ -165,7 +166,7 @@ const Single = ({ getSinglePost, getComments, site, auth: { token }, ...props })
 											</h4>
 											<div className="col-md-4 timeStamp">
 												<AccessTimeIcon className="mr-1" />
-												<p>{comment.Profile ? dateFunc(comment.Profile.created_at) : ''}</p>
+												<p>{comment.date ? dateFunc(comment.date) : ''}</p>
 											</div>
 										</div>
 										<p>{comment.content}</p>
