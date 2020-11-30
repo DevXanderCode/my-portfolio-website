@@ -1,16 +1,57 @@
-import React from 'react';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as AuthActions from '../store/actions/authActions';
+import Style from 'style-it';
 
-const PageWrapper = ({ token, logout, ...props }) => {
-	return (
+const PageWrapper = ({ token, logout, noScroll = false, ...props }) => {
+	const [ show, handleShow ] = React.useState(false);
+
+	console.log('logging no scroll', noScroll);
+	React.useEffect(() => {
+		if (noScroll) {
+			console.log('true no scroll is true');
+			handleShow(true);
+		}
+		window.addEventListener('scroll', () => {
+			if (!noScroll) {
+				if (window.scrollY > 200) {
+					handleShow(true);
+				} else {
+					handleShow(false);
+				}
+			} else {
+				handleShow(true);
+			}
+		});
+
+		return () => {
+			noScroll = false;
+			window.removeEventListener('scroll', () => {});
+		};
+	});
+
+	console.log('logging Show', show);
+	return Style.it(
+		`
+		.nav_black{
+			background-color: #343a40 !important;
+			transition-timing-function: ease-in;
+			transition: all 0.5s;
+		}
+		.nav_text_white{
+			color: white !important;
+			transition-timing-function: ease-in;
+			transition: all 0.5s;
+		}
+		.nav_text_black{
+			color: black !important;
+			transition-timing-function: ease-in;
+			transition: all 0.5s;
+		}
+	`,
 		<div>
-			<nav
-				className="navbar navbar-expand-lg navbar-dark fixed-top"
-				style={{ background: '#343a40' }}
-				id="mainNav"
-			>
+			<nav className={`navbar navbar-expand-lg navbar-dark fixed-top ${show && 'nav_black'}`} id="mainNav">
 				<div className="container">
 					<Link className="navbar-brand js-scroll-trigger" to="/">
 						Start Bootstrap

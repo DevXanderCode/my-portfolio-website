@@ -146,7 +146,7 @@ function App({ auth }) {
 			<Route
 				path="/services"
 				render={(props) => (
-					<PageWrapper>
+					<PageWrapper noScroll={true}>
 						<ServicesPage {...props} />
 					</PageWrapper>
 				)}
@@ -154,7 +154,7 @@ function App({ auth }) {
 			<Route
 				path="/portfolio"
 				render={(props) => (
-					<PageWrapper>
+					<PageWrapper noScroll={true}>
 						<PortfolioPage {...props} />
 					</PageWrapper>
 				)}
@@ -162,7 +162,7 @@ function App({ auth }) {
 			<Route
 				path="/team"
 				render={(props) => (
-					<PageWrapper>
+					<PageWrapper noScroll={true}>
 						<Team {...props} />
 					</PageWrapper>
 				)}
