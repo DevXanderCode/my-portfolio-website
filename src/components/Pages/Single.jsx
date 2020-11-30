@@ -24,7 +24,7 @@ const Single = ({ getSinglePost, getComments, site, auth: { token }, ...props })
 			() => {
 				getComments(site.post.id, token);
 			},
-			[ site.post.id ]
+			[ site.Comments ]
 		);
 	} catch (error) {
 		console.log('got this error when i tried to get post by slug', error);

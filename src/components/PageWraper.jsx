@@ -57,6 +57,11 @@ const PageWrapper = (props) => {
 									Contact
 								</Link>
 							</li>
+							<li className="nav-item">
+								<Link className="nav-link js-scroll-trigger" to="/admin">
+									Login
+								</Link>
+							</li>
 						</ul>
 					</div>
 				</div>
