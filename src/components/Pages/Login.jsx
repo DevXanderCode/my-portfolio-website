@@ -8,6 +8,8 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffSharpIcon from '@material-ui/icons/VisibilityOffSharp';
 import * as AuthActions from '../../store/actions/authActions';
 import FormikField from '../common/FormikField';
+import { useSnackbar } from 'notistack';
+import { useDispatch, useSelector } from 'react-redux';
 
 const loginPageStyle = {
 	minWidth: '40%',
@@ -65,6 +67,7 @@ const loginSchema = YUP.object().shape({
 
 const Login = ({ handleChange, handleSubmit, handleBlur, touched, errors, values, login }) => {
 	const [ fieldType, setFieldType ] = React.useState('password');
+	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 	return (
 		<div className="login-page" style={{ ...loginPageStyle }}>
 			<div className="container">
@@ -131,7 +134,6 @@ const Login = ({ handleChange, handleSubmit, handleBlur, touched, errors, values
 									<pre>
 										Don't have an Account?
 										<Link to="/signup" style={{ color: 'green' }}>
-											{' '}
 											Signup
 										</Link>
 									</pre>

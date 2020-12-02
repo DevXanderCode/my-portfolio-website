@@ -215,7 +215,7 @@ const Signup = ({ handleChange, handleSubmit, handleBlur, touched, errors, value
 			{auth.error &&
 			auth.error.response && (
 				<div className={classes.root}>
-					<Snackbar open={true} autoHideDuration={6000}>
+					<Snackbar open={true} autoHideDuration={3000}>
 						<Alert severity="error">{auth.error.response && auth.error.response.data.error.message}</Alert>
 					</Snackbar>
 				</div>

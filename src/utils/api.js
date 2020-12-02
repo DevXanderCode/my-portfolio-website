@@ -29,6 +29,10 @@ const API = {
 			})
 			.then((res) => {
 				success(res);
+			})
+			.catch((err) => {
+				console.log('Got this error when i tried to logging', err);
+				success(err);
 			});
 	},
 	register: (name, email, password, success) => {
