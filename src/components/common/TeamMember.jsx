@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const TeamItem = ({ name, role, image }) => {
+const TeamItem = ({ name, role, image, twitter, facebook, linkedin, dribble, gitHub }) => {
 	const imgStyle = {
 		objectFit: 'cover'
 	};
@@ -13,19 +13,34 @@ const TeamItem = ({ name, role, image }) => {
 				<p className="text-muted">{role}</p>
 				<ul className="list-inline social-buttons">
 					<li className="list-inline-item">
-						<Link to="#">
+						<a target="_blank" href={`${twitter}`} rel="noopener noreferrer">
 							<i className="fab fa-twitter" />
-						</Link>
+						</a>
 					</li>
+					{dribble ? (
+						<li className="list-inline-item">
+							<a target="_blank" href={`${dribble}`} rel="noopener noreferrer">
+								<i className="fab fa-dribbble" />
+							</a>
+						</li>
+					) : gitHub ? (
+						<li className="list-inline-item">
+							<a target="_blank" href={`${gitHub}`} rel="noopener noreferrer">
+								<i className="fab fa-github" />
+							</a>
+						</li>
+					) : (
+						<li className="list-inline-item">
+							<a target="_blank" href={`${facebook}`} rel="noopener noreferrer">
+								<i className="fab fa-facebook-f" />
+							</a>
+						</li>
+					)}
+
 					<li className="list-inline-item">
-						<Link to="#">
-							<i className="fab fa-facebook-f" />
-						</Link>
-					</li>
-					<li className="list-inline-item">
-						<Link to="#">
+						<a target="_blank" href={`${linkedin}`} rel="noopener noreferrer">
 							<i className="fab fa-linkedin-in" />
-						</Link>
+						</a>
 					</li>
 				</ul>
 			</div>

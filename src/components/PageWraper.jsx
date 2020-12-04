@@ -10,21 +10,23 @@ const PageWrapper = ({ token, logout, noScroll = false, ...props }) => {
 	React.useEffect(() => {
 		if (noScroll) {
 			handleShow(true);
-		}
-		window.addEventListener('scroll', () => {
-			if (!noScroll) {
-				if (window.scrollY > 200) {
-					handleShow(true);
+		} else {
+			window.addEventListener('scroll', () => {
+				if (!noScroll) {
+					if (window.scrollY > 200) {
+						handleShow(true);
+					} else {
+						handleShow(false);
+						console.log('hello testing');
+					}
 				} else {
-					handleShow(false);
+					handleShow(true);
 				}
-			} else {
-				handleShow(true);
-			}
-		});
+			});
+		}
 
 		return () => {
-			noScroll = false;
+			// noScroll = false;
 			window.removeEventListener('scroll', () => {});
 		};
 	});
@@ -52,7 +54,7 @@ const PageWrapper = ({ token, logout, noScroll = false, ...props }) => {
 			<nav className={`navbar navbar-expand-lg navbar-dark fixed-top ${show && 'nav_black'}`} id="mainNav">
 				<div className="container">
 					<Link className="navbar-brand js-scroll-trigger" to="/">
-						Start Bootstrap
+						Home
 					</Link>
 					<button
 						className="navbar-toggler navbar-toggler-right"

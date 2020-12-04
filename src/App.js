@@ -170,7 +170,7 @@ function App({ auth }) {
 			<Route
 				path="/contact"
 				render={(props) => (
-					<PageWrapper>
+					<PageWrapper noScroll={true}>
 						<Contact {...props} />
 					</PageWrapper>
 				)}

@@ -2,9 +2,23 @@ import React from 'react';
 
 import TeamMember from './TeamMember';
 const teammembers = [
-	{ name: 'Olabode Ebiniyi', role: 'Lead Designer', image: 'img/team/bode.jpg' },
-	{ name: 'Larry Parker', role: 'Lead Marketer', image: 'img/team/2.jpg' },
-	{ name: 'Diana Pertersen', role: 'Lead Developer', image: 'img/team/3.jpg' }
+	{
+		name: 'Olabode Ebiniyi',
+		role: 'Lead Designer',
+		image: 'img/team/bode.jpg',
+		twitter: 'https://twitter.com/OlabodeGenius',
+		dribble: 'https://dribbble.com/OlabodeGenius',
+		linkedin: ''
+	},
+	{
+		name: 'Nweke Chinedu Alex',
+		role: 'Lead Developer',
+		image: 'img/team/Chinedu.jpg',
+		twitter: 'https://twitter.com/XanderDev2',
+		gitHub: 'https://github.com/DevXanderCode',
+		linkedin: ''
+	},
+	{ name: 'Chima Nweke', role: 'Lead Marketer', image: 'img/team/2.jpg', twitter: '', facebook: '', linkedin: '' }
 ];
 
 const Team = () => {
