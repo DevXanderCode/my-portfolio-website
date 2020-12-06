@@ -9,7 +9,8 @@ import VisibilityOffSharpIcon from '@material-ui/icons/VisibilityOffSharp';
 import * as AuthActions from '../../store/actions/authActions';
 import FormikField from '../common/FormikField';
 import { useSnackbar } from 'notistack';
-import { useDispatch, useSelector } from 'react-redux';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 const loginPageStyle = {
 	minWidth: '40%',
@@ -65,9 +66,25 @@ const loginSchema = YUP.object().shape({
 	password: YUP.string().required('please enter your Password')
 });
 
-const Login = ({ handleChange, handleSubmit, handleBlur, touched, errors, values, login }) => {
+const Login = ({ handleChange, handleSubmit, handleBlur, touched, errors, values, login, auth }) => {
 	const [ fieldType, setFieldType ] = React.useState('password');
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
+	auth.notifications &&
+		auth.notifications.length > 0 &&
+		enqueueSnackbar(auth.notifications[auth.notifications.length - 1].notification.message, {
+			variant: `${auth.notifications[auth.notifications.length - 1].notification.name.toLowerCase()}`,
+			preventDuplicate: true,
+			action: (
+				<IconButton
+					onClick={() => {
+						closeSnackbar(auth.notifications[auth.notifications.length - 1].key);
+					}}
+				>
+					<CloseIcon />
+				</IconButton>
+			)
+		});
 	return (
 		<div className="login-page" style={{ ...loginPageStyle }}>
 			<div className="container">

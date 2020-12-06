@@ -16,6 +16,9 @@ const API = {
 			})
 			.then((res) => {
 				success(res);
+			})
+			.catch((err) => {
+				success(err);
 			});
 	},
 	getUser: (userId, token, success) => {

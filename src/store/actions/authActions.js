@@ -3,17 +3,21 @@ import API from '../../utils/api';
 export const login = (email, password) => {
 	return (dispatch) => {
 		API.login(email, password, (res) => {
-			console.log('Results: ', res.data);
-			dispatch({
-				type: 'LOGIN',
-				payload: { email, token: res.data.id, userId: res.data.userId }
-			});
-			API.getUser(res.data.userId, res.data.id, (res2) => {
+			console.log('Results: ', res);
+			if (res.status === 200) {
 				dispatch({
-					type: 'AFTER_LOGIN',
-					payload: res2.data
+					type: 'LOGIN',
+					payload: { email, token: res.data.id, userId: res.data.userId }
 				});
-			});
+				API.getUser(res.data.userId, res.data.id, (res2) => {
+					dispatch({
+						type: 'AFTER_LOGIN',
+						payload: res2.data
+					});
+				});
+			} else {
+				dispatch(enqueueSnackbar({ message: res.message, name: res.name }));
+			}
 		});
 	};
 };
@@ -47,8 +51,7 @@ export const register = (name, email, password) => {
 			console.log('logging res name', res.name);
 			res.status === 200
 				? dispatch(login(email, password))
-				: // : res && dispatch({ type: 'SHOW_ERROR', payload: res });
-					res && dispatch(enqueueSnackbar({ message: res.message, name: res.name }));
+				: res && dispatch(enqueueSnackbar({ message: res.message, name: res.name }));
 		});
 	};
 };
