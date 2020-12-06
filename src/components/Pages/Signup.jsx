@@ -12,6 +12,7 @@ import FormikField from '../common/FormikField';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
+import { useSnackbar } from 'notistack';
 
 const loginPageStyle = {
 	minWidth: '40%',
@@ -88,9 +89,17 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const Signup = ({ handleChange, handleSubmit, handleBlur, touched, errors, values, register, auth }) => {
+const Signup = ({ handleChange, handleSubmit, handleBlur, touched, errors, values, register, auth, ...props }) => {
+	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+	console.log('logging signup props', props);
 	const [ fieldType, setFieldType ] = React.useState('password');
 	const classes = useStyles();
+	auth.notifications &&
+		auth.notifications.length > 0 &&
+		enqueueSnackbar(auth.notifications[auth.notifications.length - 1].notification.message, {
+			variant: `${auth.notifications[auth.notifications.length - 1].notification.name.toLowerCase()}`,
+			preventDuplicate: true
+		});
 	// const [ open, setOpen ] = React.useState(false);
 
 	// let open = false;
@@ -211,7 +220,6 @@ const Signup = ({ handleChange, handleSubmit, handleBlur, touched, errors, value
 					</Formik>
 				</div>
 			</div>
-
 			{auth.error &&
 			auth.error.response && (
 				<div className={classes.root}>

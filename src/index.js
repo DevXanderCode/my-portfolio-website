@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -9,11 +9,12 @@ import { PersistGate } from 'redux-persist/integration/react';
 import configureStore from './store/configureStore';
 
 const { store, persistor } = configureStore();
+const notistackRef = React.createRef();
 ReactDOM.render(
 	<React.StrictMode>
 		<Provider store={store}>
 			<PersistGate loading={null} persistor={persistor}>
-				<SnackbarProvider>
+				<SnackbarProvider maxSnack={3} ref={notistackRef}>
 					<App />
 				</SnackbarProvider>
 			</PersistGate>

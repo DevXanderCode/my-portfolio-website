@@ -18,30 +18,13 @@ export const login = (email, password) => {
 	};
 };
 
-export const register = (name, email, password) => {
-	return (dispatch) => {
-		API.register(name, email, password, (res) => {
-			console.log('logging res', res);
-			res.status === 200
-				? dispatch(login(email, password))
-				: res && dispatch({ type: 'SHOW_ERROR', payload: res });
-		});
-	};
-};
-
-export const logout = () => {
-	return (dispatch) => {
-		API.logout(dispatch({ type: 'LOGOUT', payload: null }));
-	};
-};
-
 export const enqueueSnackbar = (notification) => {
 	const key = notification.options && notification.options.key;
 
 	return {
 		type: 'ENQUEUE_SNACKBAR',
 		notification: {
-			...notification,
+			notification,
 			key: key || new Date().getTime() * Math.random()
 		}
 	};
@@ -57,3 +40,21 @@ export const removeSnackbar = (key) => ({
 	type: 'REMOVE_SNACKBAR',
 	key
 });
+
+export const register = (name, email, password) => {
+	return (dispatch) => {
+		API.register(name, email, password, (res) => {
+			console.log('logging res name', res.name);
+			res.status === 200
+				? dispatch(login(email, password))
+				: // : res && dispatch({ type: 'SHOW_ERROR', payload: res });
+					res && dispatch(enqueueSnackbar({ message: res.message, name: res.name }));
+		});
+	};
+};
+
+export const logout = () => {
+	return (dispatch) => {
+		API.logout(dispatch({ type: 'LOGOUT', payload: null }));
+	};
+};
