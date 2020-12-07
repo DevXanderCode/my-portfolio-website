@@ -3,7 +3,7 @@ import API from '../../utils/api';
 export const login = (email, password) => {
 	return (dispatch) => {
 		API.login(email, password, (res) => {
-			console.log('Results: ', res);
+			console.log('Results: ', { ...res }, res);
 			if (res.status === 200) {
 				dispatch({
 					type: 'LOGIN',
@@ -15,6 +15,10 @@ export const login = (email, password) => {
 						payload: res2.data
 					});
 				});
+			} else if (res.response.request.status >= 400) {
+				dispatch(enqueueSnackbar({ message: 'Invalid Email or Password', name: res.name }));
+			} else if (res.response.request.status >= 500) {
+				dispatch(enqueueSnackbar({ message: 'Server Timeout', name: res.name }));
 			} else {
 				dispatch(enqueueSnackbar({ message: res.message, name: res.name }));
 			}

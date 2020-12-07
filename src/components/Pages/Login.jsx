@@ -66,24 +66,17 @@ const loginSchema = YUP.object().shape({
 	password: YUP.string().required('please enter your Password')
 });
 
-const Login = ({ handleChange, handleSubmit, handleBlur, touched, errors, values, login, auth }) => {
+const Login = ({ handleChange, handleSubmit, handleBlur, touched, errors, values, login, auth, notifications }) => {
 	const [ fieldType, setFieldType ] = React.useState('password');
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-	auth.notifications &&
-		auth.notifications.length > 0 &&
-		enqueueSnackbar(auth.notifications[auth.notifications.length - 1].notification.message, {
-			variant: `${auth.notifications[auth.notifications.length - 1].notification.name.toLowerCase()}`,
-			preventDuplicate: true,
-			action: (
-				<IconButton
-					onClick={() => {
-						closeSnackbar(auth.notifications[auth.notifications.length - 1].key);
-					}}
-				>
-					<CloseIcon />
-				</IconButton>
-			)
+	notifications.notifications &&
+		notifications.notifications.length > 0 &&
+		enqueueSnackbar(notifications.notifications[notifications.notifications.length - 1].notification.message, {
+			variant: `${notifications.notifications[
+				notifications.notifications.length - 1
+			].notification.name.toLowerCase()}`,
+			preventDuplicate: true
 		});
 	return (
 		<div className="login-page" style={{ ...loginPageStyle }}>
@@ -166,7 +159,8 @@ const Login = ({ handleChange, handleSubmit, handleBlur, touched, errors, values
 
 const mapStateToProps = (state) => {
 	return {
-		auth: state.auth
+		auth: state.auth,
+		notifications: state.notifications
 	};
 };
 
