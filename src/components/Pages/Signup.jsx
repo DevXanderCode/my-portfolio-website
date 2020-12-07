@@ -83,15 +83,26 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const Signup = ({ handleChange, handleSubmit, handleBlur, touched, errors, values, register, auth, ...props }) => {
+const Signup = ({
+	handleChange,
+	handleSubmit,
+	handleBlur,
+	touched,
+	errors,
+	values,
+	register,
+	auth,
+	notifications,
+	...props
+}) => {
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 	console.log('logging signup props', props);
 	const [ fieldType, setFieldType ] = React.useState('password');
-	const classes = useStyles();
-	auth.notifications &&
-		auth.notifications.length > 0 &&
-		enqueueSnackbar(auth.notifications[auth.notifications.length - 1].notification.message, {
-			variant: `${auth.notifications[auth.notifications.length - 1].notification.name.toLowerCase()}`,
+
+	notifications &&
+		notifications.length > 0 &&
+		enqueueSnackbar(notifications[notifications.length - 1].notification.message, {
+			variant: `${notifications[notifications.length - 1].notification.name.toLowerCase()}`,
 			preventDuplicate: true
 		});
 
@@ -210,7 +221,8 @@ const Signup = ({ handleChange, handleSubmit, handleBlur, touched, errors, value
 
 const mapStateToProps = (state) => {
 	return {
-		auth: state.auth
+		auth: state.auth,
+		...state.notifications
 	};
 };
 
